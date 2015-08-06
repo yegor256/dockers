@@ -22,7 +22,7 @@
 
 FROM yegor256/rultor
 MAINTAINER Yegor Bugayenko <yegor@teamed.io>
-LABEL Description="W" Vendor="Yegor Bugayenko" Version="1.0"
+LABEL Description="Wo" Vendor="Yegor Bugayenko" Version="1.0"
 
 RUN apt-get update
 RUN apt-get install -y phantomjs
