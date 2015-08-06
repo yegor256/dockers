@@ -27,5 +27,6 @@ LABEL Description="W" Vendor="Yegor Bugayenko" Version="1.0"
 RUN apt-get update
 RUN apt-get install -y phantomjs
 RUN apt-get install -y texlive-latex-extra
+
 RUN gem install hoc
 RUN apt-get install -y cloc
