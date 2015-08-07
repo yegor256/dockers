@@ -24,6 +24,8 @@ FROM yegor256/rultor
 MAINTAINER Yegor Bugayenko <yegor@teamed.io>
 LABEL Description="Wo" Vendor="Yegor Bugayenko" Version="1.0"
 
+RUN rm -rf ~/.ssh
+RUN mkdir -p ~/.ssh
 RUN echo -n "Host *\n\tStrictHostKeyChecking no" > ~/.ssh/config
 RUN chmod 600 ~/.ssh/config
 
