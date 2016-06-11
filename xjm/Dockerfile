@@ -32,6 +32,7 @@ RUN apt-get update && apt-get install -y \
   openssh-server \
   curl \
   indent \
+  doxygen \
   s3cmd \
   build-essential \
   patch \
