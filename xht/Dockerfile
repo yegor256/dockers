@@ -34,6 +34,7 @@ RUN apt-get update && apt-get install -y \
   s3cmd \
   build-essential \
   patch \
+  lsof \
   libmagic-dev=1:5.14-2ubuntu3.3 \
   zlib1g-dev=1:1.2.8.dfsg-1ubuntu1 \
   ruby2.2=2.2.4-1bbox1~trusty1 \
