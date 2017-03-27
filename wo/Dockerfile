@@ -34,8 +34,8 @@ RUN apt-get install -y phantomjs
 RUN apt-get install -y texlive-latex-extra
 RUN apt-get install -y xzdec
 #RUN tlmgr init-usertree
-RUN tlmgr install helvetic
-RUN tlmgr install psnfss
+#RUN tlmgr install helvetic
+#RUN tlmgr install psnfss
 
 RUN gem install hoc
 RUN apt-get install -y cloc
