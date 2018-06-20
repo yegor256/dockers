@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 #
-# Copyright (c) 2016-2017 Yegor Bugayenko
+# Copyright (c) 2015-2017 Yegor Bugayenko
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -20,41 +20,16 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-FROM ubuntu:14.04
-WORKDIR /tmp
+FROM ubuntu:16.04
+MAINTAINER Yegor Bugayenko <yegor256@gmail.com>
+LABEL Description="PDF papers" Vendor="Yegor Bugayenko" Version="1.0"
 
-RUN apt-get update && apt-get install -y software-properties-common \
-  && apt-add-repository ppa:brightbox/ruby-ng
+RUN rm -rf ~/.ssh
+RUN mkdir -p ~/.ssh
+RUN echo -n "Host *\n\tStrictHostKeyChecking no" > ~/.ssh/config
+RUN chmod 600 ~/.ssh/config
 
-RUN apt-get update && apt-get install -y \
-  openjdk-7-jdk \
-  git \
-  openssh-server \
-  curl \
-  s3cmd \
-  build-essential \
-  patch \
-  lsof \
-  libmagic-dev=1:5.14-2ubuntu3.3 \
-  zlib1g-dev=1:1.2.8.dfsg-1ubuntu1 \
-  ruby2.2 \
-  ruby2.2-dev \
-  && rm -rf /var/lib/apt/lists/*
+RUN apt-get update
+RUN apt-get install -y git texlive-latex-extra ruby
 
-RUN gem update && gem install \
-  nokogiri:1.6.7.2 \
-  bundler:1.11.2 \
-  pdd:0.15.4 \
-  est:0.3.1
-
-ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
-
-ENV MAVEN_VERSION 3.3.9
-
-RUN mkdir -p /usr/share/maven \
-  && curl -fsSL http://apache.osuosl.org/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz \
-    | tar -xzC /usr/share/maven --strip-components=1 \
-  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
-
-ENV MAVEN_HOME /usr/share/maven
-
+RUN gem install pdd
