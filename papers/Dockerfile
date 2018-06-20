@@ -30,6 +30,4 @@ RUN echo -n "Host *\n\tStrictHostKeyChecking no" > ~/.ssh/config
 RUN chmod 600 ~/.ssh/config
 
 RUN apt-get update
-RUN apt-get install -y git texlive-latex-extra ruby
-
-RUN gem install pdd
+RUN apt-get install -y git texlive-latex-extra ruby biber python-pygments build-essential
