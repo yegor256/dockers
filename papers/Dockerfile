@@ -30,6 +30,6 @@ RUN echo -n "Host *\n\tStrictHostKeyChecking no" > ~/.ssh/config
 RUN chmod 600 ~/.ssh/config
 
 RUN apt-get update
-RUN apt-get install -y git sudo texlive-full ruby biber python-pygments build-essential
+RUN apt-get install -y git sudo texlive-full ruby ruby-dev biber python-pygments build-essential
 
 RUN gem install bundler
