@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-FROM yegor256/rultor
+FROM yegor256/rultor-image
 MAINTAINER Yegor Bugayenko <yegor@teamed.io>
 LABEL Description="Java8" Vendor="Yegor Bugayenko" Version="1.0"
 
