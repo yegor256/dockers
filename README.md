@@ -1,3 +1,6 @@
+This repo is <strong style="color:firebrick">retired</strong>.
+Please use [yegor256/rultor-image](https://github.com/yegor256/rultor-image).
+
 Just a collection of convenient Docker images.
 
  * [`yegor256/java8`](https://github.com/yegor256/dockers/tree/master/java8): Ubuntu, Java8, Maven3+
