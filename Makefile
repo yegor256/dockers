@@ -34,6 +34,7 @@ target/%.test: target/%.build
 	lang="$${b%.*}"
 	img=yegor256/$${lang}
 	docker run --rm "$${img}" pdd --version
+	docker run --rm "$${img}" xcop --version
 
 target:
 	mkdir -p target
