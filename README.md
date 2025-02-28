@@ -1,5 +1,7 @@
 # A Few Convenient Docker Images
 
+[![make](https://github.com/yegor256/dockers/actions/workflows/make.yml/badge.svg)](https://github.com/yegor256/dockers/actions/workflows/make.yml)
+
 Just a collection of convenient Docker images.
 
 * [`yegor256/ruby`](https://hub.docker.com/repository/docker/yegor256/ruby)
