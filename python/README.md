@@ -12,4 +12,5 @@ Then, deploy it:
 docker push yegor256/rultor-python
 ```
 
-This image is used by [awesome-cfps](https://github.com/yegor256/awesome-cfps) and others.
+This image is used by [awesome-cfps](https://github.com/yegor256/awesome-cfps)
+and others.
