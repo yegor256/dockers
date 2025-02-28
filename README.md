@@ -1,13 +1,12 @@
-This repo is <strong style="color:firebrick">retired</strong>.
-Please use [yegor256/rultor-image](https://github.com/yegor256/rultor-image).
+# A Few Convenient Docker Images
 
 Just a collection of convenient Docker images.
 
- * [`yegor256/java8`](https://github.com/yegor256/dockers/tree/master/java8): Ubuntu, Java8, Maven3+
- * [`yegor256/wo`](https://github.com/yegor256/dockers/tree/master/wo): Ubuntu, LaTeX
- * [`yegor256/xht`](https://github.com/yegor256/dockers/tree/master/xht): Ubuntu, Java, Maven3+
- * [`yegor256/xb`](https://github.com/yegor256/dockers/tree/master/xb): Ubuntu, Java, Maven3+, OpenSSH
- * [`yegor256/xjm`](https://github.com/yegor256/dockers/tree/master/xjm): Ubuntu, Java, Maven3+, Indent
- * [`yegor256/papers`](https://github.com/yegor256/dockers/tree/master/papers): LaTeX and Ruby
+* [`yegor256/ruby`](https://hub.docker.com/repository/docker/yegor256/ruby)
+* [`yegor256/java`](https://hub.docker.com/repository/docker/yegor256/java)
+* [`yegor256/python`](https://hub.docker.com/repository/docker/yegor256/python)
+* [`yegor256/latex`](https://hub.docker.com/repository/docker/yegor256/latex)
 
+All of them are used by [Rultor] in all our repositories.
 
+[Rultor]: https://www.rultor.com
