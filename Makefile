@@ -21,7 +21,7 @@ target/latex.build: target/ruby.build
 target/%.push: target/%.build target/%.test | target
 	b=$$(basename "$<")
 	lang="$${b%.*}"
-	docker push "yegor256/rultor-$${lang}"
+	docker push "yegor256/$${lang}"
 	echo $? > "$@"
 
 target/%.build: %/Dockerfile | target
