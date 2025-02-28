@@ -34,7 +34,18 @@ target/%.test: target/%.build
 	lang="$${b%.*}"
 	img=yegor256/$${lang}
 	docker run --rm "$${img}" pdd --version
-	docker run --rm "$${img}" xcop --version
+	docker run --rm "$${img}" /bin/bash -c '
+		set -ex
+		useradd -m -G sudo r
+		usermod -a -G nogroup r
+		usermod -a -G ssh r
+		usermod -a -G r r
+		usermod -s /bin/bash r
+		echo "%sudo ALL=(ALL) NOPASSWD:ALL"
+		cp -R /root/.bashrc /root/.cache /root/.gemrc /root/.profile /home/r
+		chown -R r:r /home/r
+		su --login r --command "xcop --version"
+	'
 
 target:
 	mkdir -p target

@@ -44,10 +44,11 @@ RUN mkdir -p /tmp/download \
   && rm -rf /tmp/download
 
 ENV GEM_HOME=/usr/local/bundle
-ENV PATH=$GEM_HOME/bin:$PATH
-RUN echo 'PATH=$GEM_HOME/bin:$PATH' > $HOME/.profile
-
 RUN echo 'gem: --no-document' >> ~/.gemrc \
   && gem install bundler -v 2.3.26 \
   && gem install xcop -v 0.8.0 \
   && gem install pdd -v 0.23.1
+
+ENV PATH=$GEM_HOME/bin:$PATH
+RUN echo "export PATH=$GEM_HOME/bin:\$PATH" >> $HOME/.profile
+RUN echo 'export GEM_HOME=/usr/local/bundle' >> $HOME/.profile
