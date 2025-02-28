@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2024 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-FROM ruby:3.2-bullseye
+FROM ruby:3.4-bullseye
 LABEL Description="RULTOR image for simple Ruby projects (gems mostly)" Version="0.0.0"
 WORKDIR /tmp
 
