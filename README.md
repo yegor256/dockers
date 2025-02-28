@@ -9,4 +9,13 @@ Just a collection of convenient Docker images.
 
 All of them are used by [Rultor] in all our repositories.
 
+In order to build and push them, use Make (provided, you are logged into
+the Docker Hub already):
+
+```bash
+make
+```
+
+Just to test, use `make test`.
+
 [Rultor]: https://www.rultor.com

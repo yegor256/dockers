@@ -8,14 +8,17 @@ SHELL := bash
 LANGS=ruby java latex python
 BUILDS=$(addsuffix .build,$(addprefix target/,$(LANGS)))
 PUSHES=$(addsuffix .push,$(addprefix target/,$(LANGS)))
+TESTS=$(addsuffix .test,$(addprefix target/,$(LANGS)))
 
 all: $(PUSHES)
+
+test: $(TESTS)
 
 target/java.build: target/ruby.build
 target/python.build: target/ruby.build
 target/latex.build: target/ruby.build
 
-target/%.push: target/%.build | target
+target/%.push: target/%.build target/%.test | target
 	b=$$(basename "$<")
 	lang="$${b%.*}"
 	docker push "yegor256/rultor-$${lang}"
@@ -25,6 +28,12 @@ target/%.build: %/Dockerfile | target
 	lang=$$(dirname "$<")
 	docker build --file "$<" --platform=linux/x86_64 -t "yegor256/$${lang}" "$$(dirname "$<")"
 	echo $? > "$@"
+
+target/%.test: target/%.build
+	b=$$(basename "$<")
+	lang="$${b%.*}"
+	img=yegor256/$${lang}
+	docker run --rm "$${img}" pdd --version
 
 target:
 	mkdir -p target
