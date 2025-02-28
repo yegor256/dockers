@@ -44,7 +44,7 @@ target/%.test: target/%.build
 		echo "%sudo ALL=(ALL) NOPASSWD:ALL"
 		cp -R /root/.bashrc /root/.cache /root/.gemrc /root/.profile /home/r
 		chown -R r:r /home/r
-		su --login r --command "xcop --version"
+		su --login r --command "xcop --version && gem install nokogiri"
 	'
 
 target:

@@ -48,6 +48,7 @@ RUN echo 'gem: --no-document' >> ~/.gemrc \
   && gem install bundler -v 2.3.26 \
   && gem install xcop -v 0.8.0 \
   && gem install pdd -v 0.23.1
+RUN chmod a+w -R /usr/local/bundle
 
 ENV PATH=$GEM_HOME/bin:$PATH
 RUN echo "export PATH=$GEM_HOME/bin:\$PATH" >> $HOME/.profile
