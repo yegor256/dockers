@@ -29,23 +29,23 @@ target/%.build: %/Dockerfile | target
 	docker build --file "$<" --platform=linux/x86_64 -t "yegor256/$${lang}" "$$(dirname "$<")"
 	echo $? > "$@"
 
-target/%.test: target/%.build
+target/%.test: target/%.build Makefile
 	b=$$(basename "$<")
 	lang="$${b%.*}"
 	img=yegor256/$${lang}
 	docker run --rm "$${img}" pdd --version
-	docker run --rm "$${img}" /bin/bash -c '
-		set -ex
+	docker run --rm "$${img}" /bin/bash -c "$$(cat tests/test-$${lang}.sh)"
+	docker run --rm "$${img}" /bin/bash -c "
 		useradd -m -G sudo r
 		usermod -a -G nogroup r
 		usermod -a -G ssh r
 		usermod -a -G r r
 		usermod -s /bin/bash r
-		echo "%sudo ALL=(ALL) NOPASSWD:ALL"
+		echo '%sudo ALL=(ALL) NOPASSWD:ALL'
 		cp -R /root/.bashrc /root/.cache /root/.gemrc /root/.profile /home/r
 		chown -R r:r /home/r
-		su --login r --command "xcop --version && gem install nokogiri"
-	'
+		su --login r --command \"$$(cat tests/test-$${lang}.sh)\"
+	"
 
 target:
 	mkdir -p target
