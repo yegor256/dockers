@@ -42,4 +42,5 @@ RUN apt-get -y -q update \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-RUN gem install texsc texqc
+RUN gem install texsc -v 0.8.0 \
+  && gem install texqc -v 0.8.0

@@ -11,13 +11,15 @@ Just a collection of convenient Docker images.
 
 All of them are used by [Rultor] in all our repositories.
 
-In order to build and push them, use Make (provided, you are logged into
-the Docker Hub already):
+In order to build them all, use Make:
 
 ```bash
 make
 ```
 
-Just to test, use `make test`.
+When they are all ready, push them to [Docker Hub]
+(provided, you are [logged] into it aleady).
 
 [Rultor]: https://www.rultor.com
+[Docker Hub]: https://hub.docker.com/
+[logged]: https://docs.docker.com/reference/cli/docker/login/

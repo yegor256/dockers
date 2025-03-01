@@ -48,7 +48,7 @@ target/%.test: target/%.build tests/test-%.sh Makefile
 		echo '%sudo ALL=(ALL) NOPASSWD:ALL'
 		cp -R /root/.bashrc /root/.cache /root/.gemrc /root/.profile /home/r
 		chown -R r:r /home/r
-		su --login r --command \"$$(cat tests/test-$${lang}.sh)\"
+		su --login r --command \"$$(cat tests/test-$${lang}.sh | sed 's|\"|\\\"|g')\"
 	"
 
 target:
