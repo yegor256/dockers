@@ -28,11 +28,8 @@ RUN wget -q --no-check-certificate http://mirror.ctan.org/systems/texlive/tlnet/
   && tlmgr init-usertree \
   && tlmgr install texliveonfly collection-latex l3kernel l3packages \
   && pdflatex --version \
-  && bash -c '[[ "$(pdflatex --version)" =~ "2.6" ]]' \
   && tlmgr install latexmk \
-  && bash -c 'latexmk --version' \
-  && tlmgr install l3build \
-  && bash -c 'l3build --version'
+  && tlmgr install l3build
 
 RUN tlmgr option repository ctan \
   && tlmgr --verify-repo=none update --self \

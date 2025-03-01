@@ -6,4 +6,8 @@
 set -ex
 
 python --version
+python3 --version
 pip --version
+pip3 --version
+
+pip install flake8

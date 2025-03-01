@@ -23,5 +23,4 @@ RUN echo 'export M2_HOME=/usr/local/apache-maven/apache-maven-${MAVEN_VERSION}' 
   && tar xzvf "/usr/local/apache-maven/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -C /usr/local/apache-maven/ \
   && update-alternatives --install /usr/bin/mvn mvn "${M2_HOME}/bin/mvn" 1 \
   && update-alternatives --config mvn \
-  && mvn -version \
   && bash -c '[[ "$(mvn --version)" =~ "${MAVEN_VERSION}" ]]'

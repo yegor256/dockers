@@ -5,4 +5,7 @@
 
 set -ex
 
+pdflatex --version
 latexmk --version
+
+[[ "$(pdflatex --version)" =~ 2\.6 ]]

@@ -6,3 +6,4 @@
 set -ex
 
 javac --version
+mvn --version
