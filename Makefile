@@ -10,10 +10,14 @@ BUILDS=$(addsuffix .build,$(addprefix target/,$(LANGS)))
 PUSHES=$(addsuffix .push,$(addprefix target/,$(LANGS)))
 TESTS=$(addsuffix .test,$(addprefix target/,$(LANGS)))
 
-all: $(PUSHES)
-
 test: $(TESTS)
 
+push: $(PUSHES)
+
+ruby: target/java.test
+python: target/python.test
+latex: target/latex.test
+java: target/java.test
 target/java.build: target/ruby.build
 target/python.build: target/ruby.build
 target/latex.build: target/ruby.build
@@ -29,7 +33,7 @@ target/%.build: %/Dockerfile | target
 	docker build --file "$<" --platform=linux/x86_64 -t "yegor256/$${lang}" "$$(dirname "$<")"
 	echo $? > "$@"
 
-target/%.test: target/%.build Makefile
+target/%.test: target/%.build tests/test-%.sh Makefile
 	b=$$(basename "$<")
 	lang="$${b%.*}"
 	img=yegor256/$${lang}

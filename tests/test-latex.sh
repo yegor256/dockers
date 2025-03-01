@@ -7,5 +7,6 @@ set -ex
 
 pdflatex --version
 latexmk --version
+bibtex --version
 
 [[ "$(pdflatex --version)" =~ 2\.6 ]]
