@@ -50,6 +50,7 @@ target/%.test: target/%.build tests/test-%.sh Makefile
 		chown -R r:r /home/r
 		su --login r --command \"$$(cat tests/test-$${lang}.sh | sed 's|\"|\\\"|g')\"
 	"
+	echo $? > "$@"
 
 target:
 	mkdir -p target
