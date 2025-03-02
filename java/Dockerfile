@@ -8,7 +8,7 @@ ENV MAVEN_OPTS=-Xmx1g
 ENV JAVA_OPTS=-Xmx1g
 ENV JAVA_HOME=/usr/lib/jvm/java-17
 RUN apt-get -y --fix-missing update \
-  && apt-get -y --no-install-recommends install wget=* ca-certificates=* openjdk-17-jdk=* \
+  && apt-get -y --no-install-recommends install ca-certificates=* openjdk-17-jdk=* \
   && apt-get clean \
   && ln -s "/usr/lib/jvm/$(ls /usr/lib/jvm | grep java-1.17)" /usr/lib/jvm/java-17 \
   && echo 'export JAVA_HOME=/usr/lib/jvm/java-17' >> /root/.profile

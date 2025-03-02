@@ -13,5 +13,6 @@ zip -h
 unzip -h
 ssh -V
 git --version
+docker --version
 
 gem install nokogiri
