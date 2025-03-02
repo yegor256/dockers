@@ -11,7 +11,7 @@ RUN apt-get -y -q update \
     aspell=* \
     imagemagick=* \
     ghostscript=* \
-    cmake=* libssl-dev=* libjpeg-dev* \
+    qpdf=* \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -29,18 +29,8 @@ RUN wget -q --no-check-certificate http://mirror.ctan.org/systems/texlive/tlnet/
   && tlmgr init-usertree \
   && tlmgr option repository ctan \
   && tlmgr --verify-repo=none update --self \
-  && tlmgr install texliveonfly collection-latex l3kernel l3packages latexmk l3build biber xetex
-
-RUN git clone https://github.com/qpdf/qpdf \
-  && cd qpdf \
-  && git checkout v11.10.1 \
-  && cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-  && cmake --build build \
-  && cmake --install "$(pwd)/build" \
-  && cd - \
-  && rm -rf qpdf \
-  && export LD_LIBRARY_PATH=/usr/local/lib \
-  && ldconfig
+  && tlmgr install texliveonfly collection-latex l3kernel l3packages latexmk l3build biber xetex \
+  && chmod -R a+w /usr/local/texlive
 
 RUN gem install texsc -v 0.8.0 \
   && gem install texqc -v 0.8.0
