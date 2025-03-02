@@ -9,8 +9,8 @@ ruby --version
 xcop --version
 curl --version
 wget --version
-zip -h
-unzip -h
+zip -h | head -1
+unzip -h | head -1
 ssh -V
 git --version
 docker --version
