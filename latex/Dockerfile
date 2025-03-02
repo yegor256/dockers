@@ -6,11 +6,12 @@ LABEL Description="RULTOR image for simple LaTeX projects" Version="0.0.0"
 
 RUN apt-get -y -q update \
   && apt-get -y install --no-install-recommends \
-    wget=* \
     perl=* \
-    zip=* unzip=* \
     inkscape=* \
+    aspell=* \
     imagemagick=* \
+    ghostscript=* \
+    cmake=* libssl-dev=* libjpeg-dev* \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -26,21 +27,22 @@ RUN wget -q --no-check-certificate http://mirror.ctan.org/systems/texlive/tlnet/
   && cd ~ && rm -rf install-tl* \
   && echo "export PATH=\${PATH}:/usr/local/texlive/${TEXLIVE_YEAR}/bin/latest" >> /root/.profile \
   && tlmgr init-usertree \
-  && tlmgr install texliveonfly collection-latex l3kernel l3packages \
-  && pdflatex --version \
-  && tlmgr install latexmk \
-  && tlmgr install l3build
-
-RUN tlmgr option repository ctan \
+  && tlmgr option repository ctan \
   && tlmgr --verify-repo=none update --self \
-  && tlmgr --verify-repo=none install biber \
-  && tlmgr --verify-repo=none install xetex
+  && tlmgr install texliveonfly collection-latex l3kernel l3packages latexmk l3build biber xetex
 
-RUN apt-get -y -q update \
-  && apt-get -y install --no-install-recommends \
-    ghostscript=* \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+RUN git clone https://github.com/qpdf/qpdf \
+  && cd qpdf \
+  && git checkout v11.10.1 \
+  && cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+  && cmake --build build \
+  && cmake --install "$(pwd)/build" \
+  && cd - \
+  && rm -rf qpdf \
+  && export LD_LIBRARY_PATH=/usr/local/lib \
+  && ldconfig
 
 RUN gem install texsc -v 0.8.0 \
   && gem install texqc -v 0.8.0
+
+COPY update-depends.sh /usr/bin

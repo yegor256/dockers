@@ -22,21 +22,21 @@ ENV LANGUAGE=en_US.UTF-8
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
-    curl \
-    sudo \
-    git \
-    unzip \
-    zip \
-    gnupg2 \
-    ssh \
-    libcurl4-gnutls-dev \
-    libxml2-utils \
-    libjpeg-dev \
-    build-essential \
-    libmagic-dev \
-    zlib1g-dev \
-    openssl \
-  && apt-get clean
+    curl=* wget=* \
+    sudo=* \
+    git=* \
+    zip=* unzip=* \
+    gnupg2=* \
+    ssh=* \
+    libcurl4-gnutls-dev=* \
+    libxml2-utils=* \
+    libjpeg-dev=* \
+    build-essential=* \
+    libmagic-dev=* \
+    zlib1g-dev=* \
+    openssl=* \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /tmp/download \
   && curl -s -L "https://download.docker.com/linux/static/stable/x86_64/docker-27.3.1.tgz" | tar -xz -C /tmp/download \

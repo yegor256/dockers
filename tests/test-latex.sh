@@ -9,8 +9,13 @@ pdflatex --version
 latexmk --version
 bibtex --version
 biber --version
+l3build --version
+gs --version
+qpdf --version
+texsc --version
+texqc --version
+inkscape --version
 
 [[ "$(pdflatex --version)" =~ 2\.6 ]]
 
-texsc --version
-texqc --version
+tlmgr install iexec
