@@ -7,4 +7,11 @@ set -ex
 
 ruby --version
 xcop --version
+curl --version
+wget --version
+zip -h
+unzip -h
+ssh -V
+git --version
+
 gem install nokogiri

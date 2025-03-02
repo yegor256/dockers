@@ -11,8 +11,7 @@ RUN apt-get -y --fix-missing update \
   && apt-get -y --no-install-recommends install wget=* ca-certificates=* openjdk-17-jdk=* \
   && apt-get clean \
   && ln -s "/usr/lib/jvm/$(ls /usr/lib/jvm | grep java-1.17)" /usr/lib/jvm/java-17 \
-  && echo 'export JAVA_HOME=/usr/lib/jvm/java-17' >> /root/.profile \
-  && bash -c '[[ "$(javac  --version)" =~ "17.0" ]]'
+  && echo 'export JAVA_HOME=/usr/lib/jvm/java-17' >> /root/.profile
 
 ENV MAVEN_VERSION=3.9.6
 ENV M2_HOME=/usr/local/apache-maven/apache-maven-${MAVEN_VERSION}
@@ -22,5 +21,4 @@ RUN echo 'export M2_HOME=/usr/local/apache-maven/apache-maven-${MAVEN_VERSION}' 
   && mv "apache-maven-${MAVEN_VERSION}-bin.tar.gz" /usr/local/apache-maven \
   && tar xzvf "/usr/local/apache-maven/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -C /usr/local/apache-maven/ \
   && update-alternatives --install /usr/bin/mvn mvn "${M2_HOME}/bin/mvn" 1 \
-  && update-alternatives --config mvn \
-  && bash -c '[[ "$(mvn --version)" =~ "${MAVEN_VERSION}" ]]'
+  && update-alternatives --config mvn

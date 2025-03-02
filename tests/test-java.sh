@@ -7,3 +7,7 @@ set -ex
 
 javac --version
 mvn --version
+
+[[ "$(javac --version)" =~ 17\.0 ]]
+
+[[ "$(mvn --version)" =~ 3\.9\.6 ]]
