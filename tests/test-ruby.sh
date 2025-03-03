@@ -7,6 +7,7 @@ set -ex
 
 ruby --version
 xcop --version
+pdd --version
 curl --version
 wget --version
 zip -h | head -1
