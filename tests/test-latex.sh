@@ -19,3 +19,7 @@ inkscape --version
 [[ "$(pdflatex --version)" =~ 2\.6 ]]
 
 tlmgr install iexec
+
+echo "hard ffcode" > /tmp/DEPENDS.txt
+update-depends.sh /tmp/DEPENDS.txt
+
