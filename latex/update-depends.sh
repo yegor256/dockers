@@ -11,6 +11,7 @@ if [ ! -e "${depends}" ]; then
 fi
 
 tlmgr option repository https://ftp.tu-chemnitz.de/pub/tug/historic/systems/texlive/2025/tlnet-final
+tlmgr --verify-repo=none update --self
 
 readarray -t packages < <(cut -d' ' -f2 "${depends}" | uniq)
 
