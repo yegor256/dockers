@@ -7,7 +7,10 @@ set -ex
 
 year=$1
 
-wget -q --no-check-certificate "https://ftp.tu-chemnitz.de/pub/tug/historic/systems/texlive/${year}/tlnet-final/install-tl.zip"
+url=https://mirror.ctan.org/systems/texlive/tlnet/install-tl.zip
+# "https://ftp.tu-chemnitz.de/pub/tug/historic/systems/texlive/${year}/tlnet-final/install-tl.zip"
+
+wget -q --no-check-certificate "${url}"
 unzip -qq install-tl.zip -d install-tl
 cd install-tl/install-tl-*
 (
@@ -16,7 +19,7 @@ cd install-tl/install-tl-*
     echo 'option_src 0'
     echo 'option_autobackup 0'
 ) > p
-perl ./install-tl --profile=p "--repository=https://ftp.tu-chemnitz.de/pub/tug/historic/systems/texlive/${year}/tlnet-final"
+perl ./install-tl --profile=p
 
 ln -s "$(ls "/usr/local/texlive/${year}/bin/")" "/usr/local/texlive/${year}/bin/latest"
 cd ~ && rm -rf install-tl*
