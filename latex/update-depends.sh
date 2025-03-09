@@ -10,8 +10,7 @@ if [ ! -e "${depends}" ]; then
     exit 1
 fi
 
-tlmgr option repository ctan
-tlmgr --verify-repo=none update --self
+tlmgr option repository https://ftp.tu-chemnitz.de/pub/tug/historic/systems/texlive/2025/tlnet-final
 
 readarray -t packages < <(cut -d' ' -f2 "${depends}" | uniq)
 
