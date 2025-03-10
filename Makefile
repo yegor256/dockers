@@ -25,7 +25,10 @@ target/latex.build: target/ruby.build
 target/%.push: target/%.build target/%.test | target
 	b=$$(basename "$<")
 	lang="$${b%.*}"
+	ver=0.0.1
+	docker tag "yegor256/$${lang}" "yegor256/$${lang}:$${ver}"
 	docker push "yegor256/$${lang}"
+	docker push "yegor256/$${lang}:$${ver}"
 	echo $? > "$@"
 
 target/%.build: %/Dockerfile | target
