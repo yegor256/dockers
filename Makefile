@@ -30,7 +30,9 @@ target/%.push: target/%.build target/%.test | target
 
 target/%.build: %/Dockerfile | target
 	lang=$$(dirname "$<")
-	docker build --progress=plain --file "$<" --platform=linux/x86_64 -t "yegor256/$${lang}" "$$(dirname "$<")"
+	docker build --progress=plain --file "$<" \
+		--platform=linux/x86_64,linux/arm64,linux/amd64 \
+		--tag "yegor256/$${lang}" "$$(dirname "$<")"
 	echo $? > "$@"
 
 target/%.test: target/%.build tests/test-%.sh Makefile

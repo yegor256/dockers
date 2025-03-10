@@ -18,8 +18,17 @@ RUN apt-get -y -q update \
 ENV TL_YEAR=2025
 ENV TL_URL=https://ftp.snt.utwente.nl/pub/software/tex/systems/texlive/tlnet
 ENV PATH=${PATH}:/usr/local/texlive/${TL_YEAR}/bin/latest
-COPY install-texlive.sh /tmp
-RUN /tmp/install-texlive.sh "${TL_YEAR}" "${TL_URL}"
+RUN wget -q --no-check-certificate "${TL_URL}/install-tl.zip" \
+  && unzip -qq install-tl.zip -d install-tl \
+  && cd install-tl/install-tl-* \
+  && perl ./install-tl --scheme=scheme-minimal --no-interaction "--repository=${TL_URL}" \
+  && ln -s "$(ls "/usr/local/texlive/${TL_YEAR}/bin/")" "/usr/local/texlive/${TL_YEAR}/bin/latest" \
+  && cd ~ && rm -rf install-tl* \
+  && echo "export PATH=\${PATH}:/usr/local/texlive/${TL_YEAR}/bin/latest" >> /root/.profile \
+  && tlmgr init-usertree \
+  && tlmgr option repository "${TL_URL}" \
+  && tlmgr --verify-repo=none install texliveonfly collection-latex l3kernel l3packages latexmk l3build biber xetex \
+  && chmod -R a+w /usr/local/texlive
 
 RUN gem install texsc -v 0.8.0 \
   && gem install texqc -v 0.8.0
