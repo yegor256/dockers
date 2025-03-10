@@ -3,7 +3,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2012-2025 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-set -ex
+set -e
 
 pdflatex --version
 latexmk --version
@@ -22,4 +22,3 @@ tlmgr install iexec
 
 echo "hard ffcode" > /tmp/DEPENDS.txt
 update-depends.sh /tmp/DEPENDS.txt
-

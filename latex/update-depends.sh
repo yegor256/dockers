@@ -3,6 +3,8 @@
 # SPDX-FileCopyrightText: Copyright (c) 2012-2025 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
+set -e
+
 depends=$1
 
 if [ ! -e "${depends}" ]; then
@@ -10,7 +12,7 @@ if [ ! -e "${depends}" ]; then
     exit 1
 fi
 
-tlmgr option repository https://ftp.snt.utwente.nl/pub/software/tex/systems/texlive/tlnet/
+tlmgr option repository ---URL---
 tlmgr --verify-repo=none update --self
 
 readarray -t packages < <(cut -d' ' -f2 "${depends}" | uniq)

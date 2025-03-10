@@ -16,11 +16,13 @@ RUN apt-get -y -q update \
   && rm -rf /var/lib/apt/lists/*
 
 ENV TL_YEAR=2025
+ENV TL_URL=https://ftp.snt.utwente.nl/pub/software/tex/systems/texlive/tlnet
 ENV PATH=${PATH}:/usr/local/texlive/${TL_YEAR}/bin/latest
 COPY install-texlive.sh /tmp
-RUN /tmp/install-texlive.sh "${TL_YEAR}"
+RUN /tmp/install-texlive.sh "${TL_YEAR}" "${TL_URL}"
 
 RUN gem install texsc -v 0.8.0 \
   && gem install texqc -v 0.8.0
 
 COPY update-depends.sh /usr/bin
+RUN sed -i -E "s|---URL---|${TL_URL}|g" /usr/bin/update-depends.sh

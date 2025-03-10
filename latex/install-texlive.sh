@@ -3,12 +3,10 @@
 # SPDX-FileCopyrightText: Copyright (c) 2012-2025 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-set -ex
+set -e
 
 year=$1
-
-# url=https://mirror.ctan.org/systems/texlive/tlnet/install-tl.zip
-url=https://ftp.snt.utwente.nl/pub/software/tex/systems/texlive/tlnet
+url=$2
 
 wget -q --no-check-certificate "${url}/install-tl.zip"
 unzip -qq install-tl.zip -d install-tl
