@@ -17,3 +17,5 @@ git --version
 docker --version
 
 gem install nokogiri
+
+[ -e /usr/bin/install-postgres.sh ]

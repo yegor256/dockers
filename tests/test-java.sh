@@ -11,3 +11,5 @@ mvn --version
 [[ "$(javac --version)" =~ 17\.0 ]]
 
 [[ "$(mvn --version)" =~ 3\.9\.6 ]]
+
+[ -e /usr/bin/install-postgres.sh ]

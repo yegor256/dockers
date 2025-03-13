@@ -13,15 +13,17 @@ PLATFORMS=linux/x86_64,linux/arm64,linux/amd64
 
 test: $(TESTS)
 
+build: $(BUILDS)
+
 push: $(PUSHES)
 
 ruby: target/java.test
 python: target/python.test
 latex: target/latex.test
 java: target/java.test
-target/java.build: target/ruby.build
-target/python.build: target/ruby.build
-target/latex.build: target/ruby.build
+# target/java.build: target/ruby.build
+# target/python.build: target/ruby.build
+# target/latex.build: target/ruby.build
 
 target/%.push: target/%.build target/%.test | target
 	b=$$(basename "$<")
@@ -32,7 +34,7 @@ target/%.push: target/%.build target/%.test | target
 	docker push "yegor256/$${lang}:$${ver}"
 	echo $? > "$@"
 
-target/%.build: %/Dockerfile %/*.sh | target
+target/%.build: %/Dockerfile | target
 	lang=$$(dirname "$<")
 	docker build --progress=plain --file "$<" \
 		"$$( if [ -n "$(PLATFORMS)" ]; then echo "--platform=$(PLATFORMS)"; fi )" \
