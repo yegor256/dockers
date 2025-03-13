@@ -41,7 +41,7 @@ target/%.build: %/Dockerfile | target
 		--tag "yegor256/$${lang}" "$$(dirname "$<")"
 	echo $? > "$@"
 
-target/%.test: target/%.build tests/test-%.sh Makefile
+target/%.test: target/%.build Makefile
 	b=$$(basename "$<")
 	lang="$${b%.*}"
 	img=yegor256/$${lang}

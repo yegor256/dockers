@@ -9,6 +9,7 @@ ENV JAVA_OPTS=-Xmx1g
 ENV JAVA_HOME=/usr/lib/jvm/java-17
 RUN apt-get -y --fix-missing update \
   && apt-get -y --no-install-recommends install ca-certificates=* openjdk-17-jdk=* \
+  && update-ca-certificates \
   && apt-get clean \
   && ln -s "/usr/lib/jvm/$(ls /usr/lib/jvm | grep java-1.17)" /usr/lib/jvm/java-17 \
   && echo 'export JAVA_HOME=/usr/lib/jvm/java-17' >> /root/.profile
@@ -21,4 +22,5 @@ RUN echo 'export M2_HOME=/usr/local/apache-maven/apache-maven-${MAVEN_VERSION}' 
   && mv "apache-maven-${MAVEN_VERSION}-bin.tar.gz" /usr/local/apache-maven \
   && tar xzvf "/usr/local/apache-maven/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -C /usr/local/apache-maven/ \
   && update-alternatives --install /usr/bin/mvn mvn "${M2_HOME}/bin/mvn" 1 \
-  && update-alternatives --config mvn
+  && update-alternatives --config mvn \
+  && mvn dependency:get -Dartifact=junit:junit:4.11
