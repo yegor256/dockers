@@ -35,6 +35,7 @@ RUN apt-get update \
     libmagic-dev=* \
     zlib1g-dev=* \
     openssl=* \
+    lsb-release=* software-properties-common=* \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -53,3 +54,5 @@ RUN chmod a+w -R /usr/local/bundle
 ENV PATH=$GEM_HOME/bin:$PATH
 RUN echo "export PATH=$GEM_HOME/bin:\$PATH" >> $HOME/.profile
 RUN echo 'export GEM_HOME=/usr/local/bundle' >> $HOME/.profile
+
+RUN wget -qO- https://apt.llvm.org/llvm.sh | bash -s -- 19
