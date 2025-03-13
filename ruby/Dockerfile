@@ -55,4 +55,6 @@ ENV PATH=$GEM_HOME/bin:$PATH
 RUN echo "export PATH=$GEM_HOME/bin:\$PATH" >> $HOME/.profile
 RUN echo 'export GEM_HOME=/usr/local/bundle' >> $HOME/.profile
 
-RUN wget -qO- https://apt.llvm.org/llvm.sh | bash -s -- 19
+COPY install-chrome.sh /usr/bin/install-chrome.sh
+COPY install-clang.sh /usr/bin/install-clang.sh
+COPY install-postgres.sh /usr/bin/install-postgres.sh

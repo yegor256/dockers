@@ -3,7 +3,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2012-2025 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-set -ex
+set -ex -o pipefail
 
 ruby --version
 xcop --version
@@ -15,6 +15,5 @@ unzip -h | head -1
 ssh -V
 git --version
 docker --version
-clang-19 --version
 
 gem install nokogiri

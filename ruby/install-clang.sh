@@ -5,9 +5,7 @@
 
 set -ex -o pipefail
 
-javac --version
-mvn --version
+wget -qO- https://apt.llvm.org/llvm.sh | bash -s -- 19
 
-[[ "$(javac --version)" =~ 17\.0 ]]
-
-[[ "$(mvn --version)" =~ 3\.9\.6 ]]
+ln -s "$(which clang-19)" /usr/bin/clang
+clang --version

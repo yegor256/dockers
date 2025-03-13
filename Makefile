@@ -31,7 +31,7 @@ target/%.push: target/%.build target/%.test | target
 	docker push "yegor256/$${lang}:$${ver}"
 	echo $? > "$@"
 
-target/%.build: %/Dockerfile | target
+target/%.build: %/Dockerfile %/*.sh | target
 	lang=$$(dirname "$<")
 	docker build --progress=plain --file "$<" \
 		--platform=linux/x86_64,linux/arm64,linux/amd64 \
@@ -55,6 +55,11 @@ target/%.test: target/%.build tests/test-%.sh Makefile
 		chown -R r:r /home/r
 		su --login r --command \"$$(cat tests/test-$${lang}.sh | sed 's|\"|\\\"|g')\"
 	"
+	echo $? > "$@"
+
+target/%.install: ruby/install-%.sh target/ruby.build Makefile
+	i=$$(basename "$<")
+	docker run --rm --platform=linux/amd64 yegor256/ruby "/usr/bin/$${i}"
 	echo $? > "$@"
 
 target:
