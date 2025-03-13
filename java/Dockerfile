@@ -6,13 +6,14 @@ LABEL Description="RULTOR image for simple Java+Maven projects" Version="0.0.0"
 
 ENV MAVEN_OPTS=-Xmx1g
 ENV JAVA_OPTS=-Xmx1g
-ENV JAVA_HOME=/usr/lib/jvm/java-17
+ENV JAVA_VERSION=17
+ENV JAVA_HOME=/usr/lib/jvm/java-${JAVA_VERSION}
 RUN apt-get -y --fix-missing update \
-  && apt-get -y --no-install-recommends install ca-certificates=* openjdk-17-jdk=* \
+  && apt-get -y --no-install-recommends install ca-certificates=* "openjdk-${JAVA_VERSION}-jdk=*" \
   && update-ca-certificates \
   && apt-get clean \
-  && ln -s "/usr/lib/jvm/$(ls /usr/lib/jvm | grep java-1.17)" /usr/lib/jvm/java-17 \
-  && echo 'export JAVA_HOME=/usr/lib/jvm/java-17' >> /root/.profile
+  && ln -s "/usr/lib/jvm/$(ls /usr/lib/jvm | grep "java-1.${JAVA_VERSION}")" "/usr/lib/jvm/java-${JAVA_VERSION}" \
+  && echo "export JAVA_HOME=/usr/lib/jvm/java-${JAVA_VERSION}" >> /root/.profile
 
 ENV MAVEN_VERSION=3.9.6
 ENV M2_HOME=/usr/local/apache-maven/apache-maven-${MAVEN_VERSION}
