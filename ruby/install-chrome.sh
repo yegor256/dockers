@@ -14,3 +14,4 @@ apt-get update --yes --fix-missing
 apt-get install --yes google-chrome-stable
 
 google-chrome --version
+/usr/bin/google-chrome --version

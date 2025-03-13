@@ -35,7 +35,7 @@ target/%.push: target/%.build target/%.test | target
 target/%.build: %/Dockerfile %/*.sh | target
 	lang=$$(dirname "$<")
 	docker build --progress=plain --file "$<" \
-		"$$( if [ -n "$${PLATFORMS}" ]; then echo "--platform=$(PLATFORMS)"; fi )" \
+		"$$( if [ -n "$(PLATFORMS)" ]; then echo "--platform=$(PLATFORMS)"; fi )" \
 		--tag "yegor256/$${lang}" "$$(dirname "$<")"
 	echo $? > "$@"
 
@@ -61,7 +61,7 @@ target/%.test: target/%.build tests/test-%.sh Makefile
 target/%.install: ruby/install-%.sh target/ruby.build Makefile
 	i=$$(basename "$<")
 	docker run --rm \
-		"$$( if [ -n "$${PLATFORMS}" ]; then echo '--platform=linux/amd64'; fi )" \
+		"$$( if [ -n "$(PLATFORMS)" ]; then echo '--platform=linux/amd64'; fi )" \
 		yegor256/ruby "/usr/bin/$${i}"
 	echo $? > "$@"
 
