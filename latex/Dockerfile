@@ -33,5 +33,5 @@ RUN wget -q --no-check-certificate "${TL_URL}/install-tl.zip" \
 RUN gem install texsc -v 0.8.0 \
   && gem install texqc -v 0.8.0
 
-COPY update-depends.sh /usr/bin
+COPY latex/update-depends.sh /usr/bin
 RUN sed -i -E "s|---URL---|${TL_URL}|g" /usr/bin/update-depends.sh
