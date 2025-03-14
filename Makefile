@@ -9,8 +9,8 @@ LANGS=ruby java latex python
 BUILDS=$(addsuffix .build,$(addprefix target/,$(LANGS)))
 PUSHES=$(addsuffix .push,$(addprefix target/,$(LANGS)))
 TESTS=$(addsuffix .test,$(addprefix target/,$(LANGS)))
-EXTRAS=$(shell find ruby/extras/ -name '*.sh')
-TESTS=$(addsuffix .extra,$(addprefix target/,$(subst ruby/extras,,$(subst .sh,,$(EXTRAS)))))
+EXTRAS=$(shell find extras/ -name '*.sh')
+TESTS=$(addsuffix .extra,$(addprefix target/,$(subst extras/,,$(subst .sh,,$(EXTRAS)))))
 PLATFORMS=linux/x86_64,linux/arm64,linux/amd64
 
 test: $(TESTS) $(ETESTS)
@@ -41,7 +41,7 @@ target/%.build: %/Dockerfile | target
 	lang=$$(dirname "$<")
 	docker build --progress=plain --file "$<" \
 		"$$( if [ -n "$(PLATFORMS)" ]; then echo "--platform=$(PLATFORMS)"; fi )" \
-		--tag "yegor256/$${lang}" "$$(dirname "$<")"
+		--tag "yegor256/$${lang}" .
 	echo $? > "$@"
 
 target/%.test: target/%.build Makefile
@@ -63,7 +63,7 @@ target/%.test: target/%.build Makefile
 	"
 	echo $? > "$@"
 
-target/%.extra: ruby/extras/%.sh target/ruby.build Makefile
+target/%.extra: extras/%.sh target/ruby.build Makefile
 	i=$$(basename "$<")
 	docker run --rm \
 		"$$( if [ -n "$(PLATFORMS)" ]; then echo '--platform=linux/amd64'; fi )" \
