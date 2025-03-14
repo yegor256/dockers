@@ -13,6 +13,7 @@ apt-get install --yes postgresql-client-16 postgresql-16
 dir=$(realpath "/usr/lib/postgresql"/*)
 version=$(basename "${dir}")
 apt-get install --yes "postgresql-server-dev-${version}"
+apt-get clean
 
 for c in initdb postgres pg_ctl; do
     ln -s "$(realpath "${dir}/bin/${c}")" "/bin/${c}"

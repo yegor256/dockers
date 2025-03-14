@@ -13,6 +13,7 @@ echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /et
 apt-get update --yes --fix-missing
 apt-get install --yes google-chrome-stable
 apt-get remove --yes --purge chromium-driver
+apt-get clean
 
 google-chrome --version
 /usr/bin/google-chrome --version

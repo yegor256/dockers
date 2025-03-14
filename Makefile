@@ -9,21 +9,24 @@ LANGS=ruby java latex python
 BUILDS=$(addsuffix .build,$(addprefix target/,$(LANGS)))
 PUSHES=$(addsuffix .push,$(addprefix target/,$(LANGS)))
 TESTS=$(addsuffix .test,$(addprefix target/,$(LANGS)))
+EXTRAS=$(shell find ruby/extras/ -name '*.sh')
+TESTS=$(addsuffix .extra,$(addprefix target/,$(subst ruby/extras,,$(subst .sh,,$(EXTRAS)))))
 PLATFORMS=linux/x86_64,linux/arm64,linux/amd64
 
-test: $(TESTS)
+test: $(TESTS) $(ETESTS)
 
 build: $(BUILDS)
 
 push: $(PUSHES)
 
-ruby: target/java.test
+ruby: target/ruby.test $(EXTRAS)
 python: target/python.test
 latex: target/latex.test
 java: target/java.test
-# target/java.build: target/ruby.build
-# target/python.build: target/ruby.build
-# target/latex.build: target/ruby.build
+target/ruby.build: $(EXTRAS)
+target/java.build: target/ruby.build
+target/python.build: target/ruby.build
+target/latex.build: target/ruby.build
 
 target/%.push: target/%.build target/%.test | target
 	b=$$(basename "$<")
@@ -60,7 +63,7 @@ target/%.test: target/%.build Makefile
 	"
 	echo $? > "$@"
 
-target/%.install: ruby/install-%.sh target/ruby.build Makefile
+target/%.extra: ruby/extras/%.sh target/ruby.build Makefile
 	i=$$(basename "$<")
 	docker run --rm \
 		"$$( if [ -n "$(PLATFORMS)" ]; then echo '--platform=linux/amd64'; fi )" \
