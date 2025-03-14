@@ -37,7 +37,7 @@ target/%.push: target/%.build target/%.test | target
 	docker push "yegor256/$${lang}:$${ver}"
 	echo $? > "$@"
 
-target/%.build: %/Dockerfile | target
+target/%.build: %/Dockerfile $(EXTRAS) | target
 	lang=$$(dirname "$<")
 	docker build --progress=plain --file "$<" \
 		"$$( if [ -n "$(PLATFORMS)" ]; then echo "--platform=$(PLATFORMS)"; fi )" \
