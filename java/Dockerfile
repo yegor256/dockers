@@ -10,8 +10,8 @@ ENV JAVA_VERSION=17
 ENV JAVA_HOME=/usr/lib/jvm/java-${JAVA_VERSION}
 RUN apt-get -y --fix-missing update \
   && apt-get -y --no-install-recommends install ca-certificates=* "openjdk-${JAVA_VERSION}-jdk=*" \
-  && update-ca-certificates \
   && apt-get clean \
+  && update-ca-certificates \
   && ln -s "/usr/lib/jvm/$(ls /usr/lib/jvm | grep "java-1.${JAVA_VERSION}")" "/usr/lib/jvm/java-${JAVA_VERSION}" \
   && echo "export JAVA_HOME=/usr/lib/jvm/java-${JAVA_VERSION}" >> /root/.profile
 
