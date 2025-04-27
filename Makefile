@@ -5,7 +5,7 @@
 .PHONY: clean
 .SHELLFLAGS := -e -o pipefail -c
 SHELL := bash
-LANGS=ruby java latex python
+LANGS=ruby java latex python rust
 BUILDS=$(addsuffix .build,$(addprefix target/,$(LANGS)))
 PUSHES=$(addsuffix .push,$(addprefix target/,$(LANGS)))
 TESTS=$(addsuffix .test,$(addprefix target/,$(LANGS)))
@@ -21,11 +21,13 @@ push: $(PUSHES)
 
 ruby: target/ruby.test $(EXTRAS)
 python: target/python.test
+rust: target/rust.test
 latex: target/latex.test
 java: target/java.test
 target/ruby.build: $(EXTRAS)
 target/java.build: target/ruby.build
 target/python.build: target/ruby.build
+target/rust.build: target/rust.build
 target/latex.build: target/ruby.build
 
 target/%.push: target/%.build target/%.test | target
