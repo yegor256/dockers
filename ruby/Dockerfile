@@ -14,9 +14,9 @@ RUN apt-get update && apt-get install -y locales \
   && locale-gen \
   && update-locale LANG=en_US.UTF-8 \
   && echo "LC_ALL=en_US.UTF-8\nLANG=en_US.UTF-8\nLANGUAGE=en_US.UTF-8" > /etc/default/locale \
-  && echo 'export LC_ALL=en_US.UTF-8' >> /root/.profile \
-  && echo 'export LANG=en_US.UTF-8' >> /root/.profile \
-  && echo 'export LANGUAGE=en_US.UTF-8' >> /root/.profile
+  && echo 'export LC_ALL=en_US.UTF-8' >> "${HOME}/.profile" \
+  && echo 'export LANG=en_US.UTF-8' >> "${HOME}/.profile" \
+  && echo 'export LANGUAGE=en_US.UTF-8' >> "${HOME}/.profile"
 
 ENV LC_ALL=en_US.UTF-8
 ENV LANG=en_US.UTF-8

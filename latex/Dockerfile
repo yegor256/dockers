@@ -25,7 +25,7 @@ RUN wget -q --no-check-certificate "${TL_URL}/install-tl.zip" \
   && perl ./install-tl --scheme=scheme-minimal --no-interaction "--repository=${TL_URL}" \
   && ln -s "$(ls "/usr/local/texlive/${TL_YEAR}/bin/")" "/usr/local/texlive/${TL_YEAR}/bin/latest" \
   && cd ~ && rm -rf install-tl* \
-  && echo "export PATH=\${PATH}:/usr/local/texlive/${TL_YEAR}/bin/latest" >> /root/.profile \
+  && echo "export PATH=\${PATH}:/usr/local/texlive/${TL_YEAR}/bin/latest" >> "${HOME}/.profile" \
   && tlmgr init-usertree \
   && tlmgr option repository "${TL_URL}" \
   && tlmgr --verify-repo=none install texliveonfly collection-latex l3kernel l3packages latexmk l3build biber xetex \

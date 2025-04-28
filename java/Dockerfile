@@ -13,11 +13,11 @@ RUN apt-get -y --fix-missing update \
   && apt-get clean \
   && update-ca-certificates \
   && ln -s "/usr/lib/jvm/$(ls /usr/lib/jvm | grep "java-1.${JAVA_VERSION}")" "/usr/lib/jvm/java-${JAVA_VERSION}" \
-  && echo "export JAVA_HOME=/usr/lib/jvm/java-${JAVA_VERSION}" >> /root/.profile
+  && echo "export JAVA_HOME=/usr/lib/jvm/java-${JAVA_VERSION}" >> "${HOME}/.profile"
 
 ENV MAVEN_VERSION=3.9.9
 ENV M2_HOME=/usr/local/apache-maven/apache-maven-${MAVEN_VERSION}
-RUN echo 'export M2_HOME=/usr/local/apache-maven/apache-maven-${MAVEN_VERSION}' >> /root/.profile \
+RUN echo 'export M2_HOME=/usr/local/apache-maven/apache-maven-${MAVEN_VERSION}' >> "${HOME}/.profile" \
   && wget --quiet "https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" \
   && mkdir -p /usr/local/apache-maven \
   && mv "apache-maven-${MAVEN_VERSION}-bin.tar.gz" /usr/local/apache-maven \
