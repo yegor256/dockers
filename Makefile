@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 .ONESHELL:
-.PHONY: clean
+.PHONY: clean ruby latex python rust java
 .SHELLFLAGS := -e -o pipefail -c
 SHELL := bash
 LANGS=ruby java latex python rust
