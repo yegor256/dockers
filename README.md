@@ -8,6 +8,7 @@ Just a collection of convenient Docker images.
 * [`yegor256/java`](https://hub.docker.com/repository/docker/yegor256/java)
 * [`yegor256/python`](https://hub.docker.com/repository/docker/yegor256/python)
 * [`yegor256/latex`](https://hub.docker.com/repository/docker/yegor256/latex)
+* [`yegor256/rust`](https://hub.docker.com/repository/docker/yegor256/rust)
 
 All of them are used by [Rultor] in all our repositories.
 
