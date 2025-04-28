@@ -9,6 +9,7 @@ ENV JAVA_OPTS=-Xmx1g
 ENV JAVA_VERSION=17
 ENV JAVA_HOME=/usr/lib/jvm/java-${JAVA_VERSION}
 RUN apt-get -y --fix-missing update \
+  && apt-get -y install ca-certificates-java=* \
   && apt-get -y --no-install-recommends install ca-certificates=* "openjdk-${JAVA_VERSION}-jdk=*" \
   && apt-get clean \
   && update-ca-certificates \

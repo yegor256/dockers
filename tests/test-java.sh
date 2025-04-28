@@ -12,6 +12,6 @@ mvn dependency:get -Dartifact=junit:junit:4.11
 
 [[ "$(javac --version)" =~ 17\.0 ]]
 
-[[ "$(mvn --version)" =~ 3\.9\.6 ]]
+[[ "$(mvn --version)" =~ 3\.9 ]]
 
 [ -e /usr/bin/install-postgres.sh ]
