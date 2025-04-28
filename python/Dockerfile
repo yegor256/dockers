@@ -4,7 +4,6 @@
 FROM yegor256/ruby:latest
 LABEL Description="RULTOR image for simple Python+Pip projects" Version="0.0.0"
 
-# Python3 - Install from Debian repositories
 RUN apt-get update -y --fix-missing \
   && apt-get -y install libpq-dev libssl-dev openssl libffi-dev python3 python3-pip python3-dev \
   && rm -f /usr/lib/python3.*/EXTERNALLY-MANAGED \

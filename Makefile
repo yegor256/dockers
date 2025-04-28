@@ -27,7 +27,7 @@ java: target/java.test
 target/ruby.build: $(EXTRAS)
 target/java.build: target/ruby.build
 target/python.build: target/ruby.build
-target/rust.build: target/rust.build
+target/rust.build: target/ruby.build
 target/latex.build: target/ruby.build
 
 target/%.push: target/%.build target/%.test | target
@@ -39,7 +39,7 @@ target/%.push: target/%.build target/%.test | target
 	docker push "yegor256/$${lang}:$${ver}"
 	echo $? > "$@"
 
-target/%.build: %/Dockerfile $(EXTRAS) | target
+target/%.build: %/Dockerfile $(EXTRAS) Makefile | target
 	lang=$$(dirname "$<")
 	docker build --progress=plain --file "$<" \
 		"$$( if [ -n "$(PLATFORMS)" ]; then echo "--platform=$(PLATFORMS)"; fi )" \
@@ -59,7 +59,7 @@ target/%.test: target/%.build Makefile
 		usermod -a -G r r
 		usermod -s /bin/bash r
 		echo '%sudo ALL=(ALL) NOPASSWD:ALL'
-		cp -R /root/.bashrc /root/.cache /root/.gemrc /root/.profile /home/r
+		find /root \( -type f -o -type d -maxdepth 1 \) -exec cp -R {} /home/r \;
 		chown -R r:r /home/r
 		su --login r --command \"$$(cat tests/test-$${lang}.sh | sed 's|\"|\\\"|g')\"
 	"

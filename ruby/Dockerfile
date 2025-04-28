@@ -7,6 +7,8 @@ WORKDIR /tmp
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+ENV HOME=/root
+
 RUN apt-get update && apt-get install -y locales \
   && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
   && locale-gen \
@@ -28,6 +30,7 @@ RUN apt-get update \
     zip=* unzip=* \
     gnupg2=* \
     ssh=* \
+    tree=* \
     libcurl4-gnutls-dev=* \
     libxml2-utils=* \
     libjpeg-dev=* \
@@ -51,8 +54,8 @@ RUN echo 'gem: --no-document' >> ~/.gemrc \
   && gem install pdd -v 0.23.1
 RUN chmod a+w -R /usr/local/bundle
 
-ENV PATH=$GEM_HOME/bin:$PATH
-RUN echo "export PATH=$GEM_HOME/bin:\$PATH" >> $HOME/.profile
-RUN echo 'export GEM_HOME=/usr/local/bundle' >> $HOME/.profile
+ENV PATH=${GEM_HOME}/bin:${PATH}
+RUN echo "export PATH=${GEM_HOME}/bin:\${PATH}" >> "${HOME}/.profile"
+RUN echo "export GEM_HOME=${GEM_HOME}" >> "${HOME}/.profile"
 
 COPY extras/ /usr/bin/

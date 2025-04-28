@@ -6,5 +6,5 @@
 set -ex -o pipefail
 
 rustc --version
+rustfmt --version
 cargo --version
-
