@@ -31,6 +31,7 @@ RUN apt-get update \
     gnupg2=* \
     ssh=* \
     tree=* \
+    jq=* \
     libcurl4-gnutls-dev=* \
     libxml2-utils=* \
     libjpeg-dev=* \
