@@ -5,9 +5,10 @@
 
 set -ex -o pipefail
 
-python --version
+#python --version
 python3 --version
-pip --version
+#pip --version
 pip3 --version
 
-pip install flake8
+# pip install flake8
+pip3 install flake8

@@ -13,4 +13,5 @@ RUN wget https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSIO
   && cd Python-$PYTHON_VERSION \
   && ./configure --enable-optimizations \
   && make \
-  && make altinstall
+  && make altinstall \
+  && python3 --version
