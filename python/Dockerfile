@@ -4,9 +4,13 @@
 FROM yegor256/ruby:latest
 LABEL Description="RULTOR image for simple Python+Pip projects" Version="0.0.0"
 
-RUN apt-get update -y --fix-missing \
-  && apt-get -y install libpq-dev libssl-dev openssl libffi-dev python3 python3-pip python3-dev \
-  && rm -f /usr/lib/python3.*/EXTERNALLY-MANAGED \
-  && ln -s $(which python3) /usr/bin/python \
-  && pip3 install -Iv --upgrade pip \
-  && apt-get clean
+# Python ftp: https://www.python.org/ftp/python
+# Status of Python versions: https://devguide.python.org/versions/
+ENV PYTHON_VERSION=3.13.3
+
+RUN wget https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz \
+  && tar -xf Python-$PYTHON_VERSION.tgz \
+  && cd Python-$PYTHON_VERSION \
+  && ./configure --enable-optimizations \
+  && make \
+  && make altinstall
