@@ -19,7 +19,7 @@ make
 ```
 
 When they are all ready, push them to [Docker Hub]
-(provided, you are [logged] into it aleady).
+(provided, you are [logged] into it already).
 
 [Rultor]: https://www.rultor.com
 [Docker Hub]: https://hub.docker.com/
