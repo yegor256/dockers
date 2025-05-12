@@ -14,8 +14,10 @@ RUN wget https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSIO
   && cd Python-$PYTHON_VERSION \
   && ./configure --enable-optimizations --prefix=/root/.python-$PYTHON_VERSION \
   && make \
-  && make altinstall
-RUN ln -s /root/.python-$PYTHON_VERSION/bin/python3.13 /usr/local/bin/python3 \
-  && ln -s /root/.python-$PYTHON_VERSION/bin/pip3.13 /usr/local/bin/pip3
-RUN rm -rf Python-$PYTHON_VERSION.tgz Python-$PYTHON_VERSION
-RUN python3 --version && pip3 --version
+  && make altinstall \
+  && echo "export PATH=\${PATH}:/.local/bin" >> "${HOME}/.profile" \
+  && ln -s /root/.python-$PYTHON_VERSION/bin/python3.13 /usr/local/bin/python3 \
+  && ln -s /root/.python-$PYTHON_VERSION/bin/pip3.13 /usr/local/bin/pip3 \
+  && rm -rf Python-$PYTHON_VERSION.tgz Python-$PYTHON_VERSION \
+  && python3 --version \
+  && pip3 --version
