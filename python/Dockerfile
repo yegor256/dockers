@@ -8,12 +8,14 @@ LABEL Description="RULTOR image for simple Python+Pip projects" Version="0.0.0"
 # Status of Python versions: https://devguide.python.org/versions/
 ENV PYTHON_VERSION=3.13.3
 
+RUN mkdir -p /root/.python-$PYTHON_VERSION
 RUN wget https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz \
   && tar -xf Python-$PYTHON_VERSION.tgz \
   && cd Python-$PYTHON_VERSION \
-  && ./configure --enable-optimizations \
+  && ./configure --enable-optimizations --prefix=/root/.python-$PYTHON_VERSION \
   && make \
-  && make altinstall \
-  && echo "export PATH=\${PATH}:/.local/bin" >> "${HOME}/.profile" \
-  && python3 --version \
-  && pip3 --version
+  && make altinstall
+RUN ln -s /root/.python-$PYTHON_VERSION/bin/python3.13 /usr/local/bin/python3 \
+  && ln -s /root/.python-$PYTHON_VERSION/bin/pip3.13 /usr/local/bin/pip3
+RUN rm -rf Python-$PYTHON_VERSION.tgz Python-$PYTHON_VERSION
+RUN python3 --version && pip3 --version
