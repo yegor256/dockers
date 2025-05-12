@@ -11,4 +11,6 @@ pip --version
 pip3 --version
 
 pip install flake8
+flake8 --version
 pip3 install flake8
+flake8 --version
