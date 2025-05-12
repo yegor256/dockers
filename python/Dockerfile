@@ -14,5 +14,6 @@ RUN wget https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSIO
   && ./configure --enable-optimizations \
   && make \
   && make altinstall \
+  && echo "export PATH=\${PATH}:/.local/bin" >> "${HOME}/.profile" \
   && python3 --version \
   && pip3 --version
