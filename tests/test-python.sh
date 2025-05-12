@@ -5,7 +5,6 @@
 
 set -ex -o pipefail
 
-python --version
 python3 --version
 pip3 --version
 
