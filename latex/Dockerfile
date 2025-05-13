@@ -27,7 +27,7 @@ RUN wget -q --no-check-certificate "${TL_URL}/install-tl.zip" \
   && cd install-tl/install-tl-* \
   && perl ./install-tl --scheme=scheme-minimal --no-interaction "--repository=${TL_URL}" \
   && ln -s "$(ls "/usr/local/texlive/${TL_YEAR}/bin/")" "/usr/local/texlive/${TL_YEAR}/bin/latest" \
-  && cd
+  && cd \
   && rm -rf install-tl* \
   && echo "export PATH=\${PATH}:/usr/local/texlive/${TL_YEAR}/bin/latest" >> "${HOME}/.profile" \
   && tlmgr init-usertree \
