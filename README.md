@@ -3,6 +3,7 @@
 [![make](https://github.com/yegor256/dockers/actions/workflows/make.yml/badge.svg)](https://github.com/yegor256/dockers/actions/workflows/make.yml)
 
 Just a collection of convenient Docker images.
+Their names speak for themselves.
 
 * [`yegor256/ruby`](https://hub.docker.com/repository/docker/yegor256/ruby)
 * [`yegor256/java`](https://hub.docker.com/repository/docker/yegor256/java)
@@ -18,7 +19,7 @@ In order to build them all, use Make:
 make
 ```
 
-When they are all ready, push them to [Docker Hub]
+When they are all ready, `make push` them to [Docker Hub]
 (provided, you are [logged] into it already).
 
 [Rultor]: https://www.rultor.com
