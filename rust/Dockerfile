@@ -10,7 +10,5 @@ SHELL ["/bin/bash", "-e", "-c", "-o", "pipefail"]
 ENV PATH=${PATH}:${HOME}/.cargo/bin
 
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y \
-  && echo 'export PATH=${PATH}:${HOME}/.cargo/bin' >> "${HOME}/.profile" \
-  && echo "${HOME}]" \
-  && tree "${HOME}/.cargo/bin" \
+  && echo "export PATH=\${PATH}:\${HOME}/.cargo/bin" >> "${HOME}/.profile" \
   && rustup toolchain install stable
