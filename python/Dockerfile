@@ -13,15 +13,16 @@ ENV PYTHON_VERSION=3.13.3
 
 RUN mkdir -p /root/.python-$PYTHON_VERSION
 # hadolint ignore=DL3003
-RUN wget -q https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz \
-  && tar -xf Python-$PYTHON_VERSION.tgz \
-  && cd Python-$PYTHON_VERSION \
-  && ./configure --enable-optimizations --prefix=/root/.python-$PYTHON_VERSION \
+RUN wget -q "https://www.python.org/ftp/python/$PYTHON_VERSION/Python-${PYTHON_VERSION}.tgz" \
+  && tar -xf "Python-${PYTHON_VERSION}.tgz" \
+  && cd "Python-${PYTHON_VERSION}" \
+  && ./configure --enable-optimizations "--prefix=/usr/local/python-${PYTHON_VERSION}" \
   && make \
   && make altinstall \
-  && echo "export PATH=\${PATH}:/root/.python-${PYTHON_VERSION}/bin:/.local/bin" >> "${HOME}/.profile" \
-  && ln -s "/root/.python-${PYTHON_VERSION}/bin/python3.13" /usr/local/bin/python3 \
-  && ln -s "/root/.python-${PYTHON_VERSION}/bin/pip3.13" /usr/local/bin/pip3 \
+  && echo "export PATH=\${PATH}:/usr/local/python-${PYTHON_VERSION}/bin:\${HOME}/.local/bin" >> "${HOME}/.profile" \
+  && ln -s "/usr/local/python-${PYTHON_VERSION}/bin/python3.13" /usr/local/bin/python3 \
+  && ln -s "/usr/local/python-${PYTHON_VERSION}/bin/pip3.13" /usr/local/bin/pip3 \
   && rm -rf "Python-${PYTHON_VERSION}.tgz" "Python-${PYTHON_VERSION}" \
   && python3 --version \
   && pip3 --version
+ENV PATH=${PATH}:/usr/local/python-${PYTHON_VERSION}/bin

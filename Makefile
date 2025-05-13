@@ -62,7 +62,6 @@ target/%.test: target/%.build Makefile
 		usermod -a -G ssh r
 		usermod -a -G r r
 		usermod -s /bin/bash r
-		echo '%sudo ALL=(ALL) NOPASSWD:ALL'
 		find /root \( -type f -o -type d -maxdepth 1 \) -exec cp -R {} /home/r \;
 		chown -R r:r /home/r
 		su --login r --command \"$$(cat tests/test-$${lang}.sh | sed 's|\"|\\\"|g')\"
