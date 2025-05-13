@@ -19,7 +19,7 @@ RUN wget -q https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VER
   && ./configure --enable-optimizations --prefix=/root/.python-$PYTHON_VERSION \
   && make \
   && make altinstall \
-  && echo "export PATH=\${PATH}:/.local/bin" >> "${HOME}/.profile" \
+  && echo "export PATH=\${PATH}:/root/.python-${PYTHON_VERSION}/bin:/.local/bin" >> "${HOME}/.profile" \
   && ln -s "/root/.python-${PYTHON_VERSION}/bin/python3.13" /usr/local/bin/python3 \
   && ln -s "/root/.python-${PYTHON_VERSION}/bin/pip3.13" /usr/local/bin/pip3 \
   && rm -rf "Python-${PYTHON_VERSION}.tgz" "Python-${PYTHON_VERSION}" \
