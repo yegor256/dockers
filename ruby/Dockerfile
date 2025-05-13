@@ -4,7 +4,9 @@
 FROM ruby:3.4-bullseye
 LABEL description = "RULTOR image for simple Ruby projects (gems mostly)"
 LABEL version = "0.0.0"
+
 WORKDIR /tmp
+
 SHELL ["/bin/bash", "-e", "-c", "-o", "pipefail"]
 
 ENV DEBIAN_FRONTEND=noninteractive

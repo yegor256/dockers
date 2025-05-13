@@ -1,9 +1,11 @@
 # SPDX-FileCopyrightText: Copyright (c) 2012-2025 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-FROM yegor256/ruby:latest
+FROM yegor256/ruby
 LABEL description = "RULTOR image for simple LaTeX projects"
 LABEL version = "0.0.0"
+
+SHELL ["/bin/bash", "-e", "-c", "-o", "pipefail"]
 
 RUN apt-get -y -q update \
   && apt-get -y install --no-install-recommends \
