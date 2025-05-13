@@ -22,6 +22,7 @@ ENV TL_YEAR=2025
 ENV TL_URL=https://ftp.snt.utwente.nl/pub/software/tex/systems/texlive/tlnet
 ENV PATH=${PATH}:/usr/local/texlive/${TL_YEAR}/bin/latest
 
+# hadolint ignore=DL3003
 RUN wget -q --no-check-certificate "${TL_URL}/install-tl.zip" \
   && unzip -qq install-tl.zip -d install-tl \
   && cd install-tl/install-tl-* \
