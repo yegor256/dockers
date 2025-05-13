@@ -10,7 +10,7 @@ BUILDS=$(addsuffix .build,$(addprefix target/,$(LANGS)))
 PUSHES=$(addsuffix .push,$(addprefix target/,$(LANGS)))
 TESTS=$(addsuffix .test,$(addprefix target/,$(LANGS)))
 EXTRAS=$(shell find extras/ -name '*.sh')
-TESTS=$(addsuffix .extra,$(addprefix target/,$(subst extras/,,$(subst .sh,,$(EXTRAS)))))
+ETESTS=$(addsuffix .extra,$(addprefix target/,$(subst extras/,,$(subst .sh,,$(EXTRAS)))))
 PLATFORMS=linux/x86_64,linux/arm64,linux/amd64
 
 test: $(TESTS) $(ETESTS)
