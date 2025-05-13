@@ -2,7 +2,8 @@
 # SPDX-License-Identifier: MIT
 
 FROM yegor256/ruby:latest
-LABEL Description="RULTOR image for simple Python+Pip projects" Version="0.0.0"
+LABEL description = "RULTOR image for simple Python+Pip projects"
+LABEL version = "0.0.0"
 
 # Python ftp: https://www.python.org/ftp/python
 # Status of Python versions: https://devguide.python.org/versions/

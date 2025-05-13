@@ -2,7 +2,8 @@
 # SPDX-License-Identifier: MIT
 
 FROM yegor256/ruby:latest
-LABEL Description="RULTOR image for simple LaTeX projects" Version="0.0.0"
+LABEL description = "RULTOR image for simple LaTeX projects"
+LABEL version = "0.0.0"
 
 RUN apt-get -y -q update \
   && apt-get -y install --no-install-recommends \

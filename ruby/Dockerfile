@@ -2,7 +2,8 @@
 # SPDX-License-Identifier: MIT
 
 FROM ruby:3.4-bullseye
-LABEL Description="RULTOR image for simple Ruby projects (gems mostly)" Version="0.0.0"
+LABEL description = "RULTOR image for simple Ruby projects (gems mostly)"
+LABEL version = "0.0.0"
 WORKDIR /tmp
 SHELL ["/bin/bash", "-e", "-c", "-o", "pipefail"]
 
@@ -17,7 +18,9 @@ RUN apt-get update && apt-get install --yes --no-install-recommends locales=* \
   && printf 'LC_ALL=en_US.UTF-8\nLANG=en_US.UTF-8\nLANGUAGE=en_US.UTF-8\n' > /etc/default/locale \
   && printf 'export LC_ALL=en_US.UTF-8\n' >> "${HOME}/.profile" \
   && printf 'export LANG=en_US.UTF-8\n' >> "${HOME}/.profile" \
-  && printf 'export LANGUAGE=en_US.UTF-8\n' >> "${HOME}/.profile"
+  && printf 'export LANGUAGE=en_US.UTF-8\n' >> "${HOME}/.profile" \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 ENV LC_ALL=en_US.UTF-8
 ENV LANG=en_US.UTF-8
