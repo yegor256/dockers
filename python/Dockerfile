@@ -11,8 +11,8 @@ SHELL ["/bin/bash", "-e", "-c", "-o", "pipefail"]
 # Status of Python versions: https://devguide.python.org/versions/
 ENV PYTHON_VERSION=3.13.3
 
-# hadolint ignore=DL3003
 RUN mkdir -p /root/.python-$PYTHON_VERSION
+# hadolint ignore=DL3003
 RUN wget -q https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz \
   && tar -xf Python-$PYTHON_VERSION.tgz \
   && cd Python-$PYTHON_VERSION \
