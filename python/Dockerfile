@@ -1,9 +1,9 @@
 # SPDX-FileCopyrightText: Copyright (c) 2012-2025 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-FROM yegor256/ruby
-LABEL description = "RULTOR image for simple Python+Pip projects"
-LABEL version = "0.0.0"
+FROM yegor256/ruby:0.0.1
+LABEL description="RULTOR image for simple Python+Pip projects"
+LABEL version="0.0.1"
 
 SHELL ["/bin/bash", "-e", "-c", "-o", "pipefail"]
 

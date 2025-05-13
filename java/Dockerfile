@@ -1,9 +1,9 @@
 # SPDX-FileCopyrightText: Copyright (c) 2012-2025 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-FROM yegor256/ruby
-LABEL description = "RULTOR image for simple Java+Maven projects"
-LABEL version = "0.0.0"
+FROM yegor256/ruby:0.0.1
+LABEL description="RULTOR image for simple Java+Maven projects"
+LABEL version="0.0.1"
 
 SHELL ["/bin/bash", "-e", "-c", "-o", "pipefail"]
 
@@ -14,7 +14,7 @@ ENV JAVA_HOME=/usr/lib/jvm/java-${JAVA_VERSION}
 RUN apt-get --yes --fix-missing update \
   && apt-get --yes --no-install-recommends install ca-certificates-java=* ca-certificates=* "openjdk-${JAVA_VERSION}-jdk=*" \
   && update-ca-certificates \
-  && ln -s "/usr/lib/jvm/$(ls /usr/lib/jvm | grep "java-1.${JAVA_VERSION}")" "/usr/lib/jvm/java-${JAVA_VERSION}" \
+  && ln -s "/usr/lib/jvm/$(find /usr/lib/jvm -name "java-1.${JAVA_VERSION}*" -exec basename {} \;)" "/usr/lib/jvm/java-${JAVA_VERSION}" \
   && echo "export JAVA_HOME=/usr/lib/jvm/java-${JAVA_VERSION}" >> "${HOME}/.profile" \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*

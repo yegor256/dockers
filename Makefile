@@ -13,6 +13,8 @@ EXTRAS=$(shell find extras/ -name '*.sh')
 ETESTS=$(addsuffix .extra,$(addprefix target/,$(subst extras/,,$(subst .sh,,$(EXTRAS)))))
 PLATFORMS=linux/x86_64,linux/arm64,linux/amd64
 
+VERSION=0.0.1
+
 all: test
 
 test: $(TESTS) $(ETESTS)
@@ -35,10 +37,9 @@ target/latex.build: target/ruby.build
 target/%.push: target/%.build target/%.test | target
 	b=$$(basename "$<")
 	lang="$${b%.*}"
-	ver=0.0.1
-	docker tag "yegor256/$${lang}" "yegor256/$${lang}:$${ver}"
+	docker tag "yegor256/$${lang}" "yegor256/$${lang}:$(VERSION)"
 	docker push "yegor256/$${lang}"
-	docker push "yegor256/$${lang}:$${ver}"
+	docker push "yegor256/$${lang}:$(VERSION)"
 	echo $? > "$@"
 
 target/%.build: %/Dockerfile $(EXTRAS) Makefile | target
@@ -46,13 +47,13 @@ target/%.build: %/Dockerfile $(EXTRAS) Makefile | target
 	docker buildx create --use --name multi-platform-builder || true
 	docker buildx build --progress=plain --file "$<" \
 		"$$( if [ -n "$(PLATFORMS)" ]; then echo "--platform=$(PLATFORMS)"; fi )" \
-		--tag "yegor256/$${lang}" --load .
+		--tag "yegor256/$${lang}:$(VERSION)" --load .
 	echo $? > "$@"
 
 target/%.test: target/%.build Makefile
 	b=$$(basename "$<")
 	lang="$${b%.*}"
-	img=yegor256/$${lang}
+	img=yegor256/$${lang}:$(VERSION)
 	docker run --rm "$${img}" pdd --version
 	docker run --rm "$${img}" /bin/bash -c "$$(cat tests/test-$${lang}.sh)"
 	docker run --rm "$${img}" /bin/bash -c "
