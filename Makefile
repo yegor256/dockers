@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 .ONESHELL:
-.PHONY: clean ruby latex python rust java
+.PHONY: all test build push clean ruby latex python rust java
 .SHELLFLAGS := -e -o pipefail -c
 SHELL := bash
 LANGS=ruby java latex python rust
@@ -12,6 +12,8 @@ TESTS=$(addsuffix .test,$(addprefix target/,$(LANGS)))
 EXTRAS=$(shell find extras/ -name '*.sh')
 ETESTS=$(addsuffix .extra,$(addprefix target/,$(subst extras/,,$(subst .sh,,$(EXTRAS)))))
 PLATFORMS=linux/x86_64,linux/arm64,linux/amd64
+
+all: test
 
 test: $(TESTS) $(ETESTS)
 
