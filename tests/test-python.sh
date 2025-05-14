@@ -9,5 +9,4 @@ python3 --version
 pip3 --version
 
 pip3 install flake8
-find . -name 'flake8'
 flake8 --version
