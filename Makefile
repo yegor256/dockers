@@ -34,6 +34,12 @@ target/python.build: target/ruby.build
 target/rust.build: target/ruby.build
 target/latex.build: target/ruby.build
 
+pull: | target
+	for lang in $(LANGS); do
+		docker pull "yegor256/$${lang}"
+		touch "target/$${lang}.build"
+	done
+
 target/%.push: target/%.build target/%.test | target
 	b=$$(basename "$<")
 	lang="$${b%.*}"
