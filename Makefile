@@ -63,7 +63,7 @@ target/%.build: %/Dockerfile $(EXTRAS) Makefile | target
 target/%.test: target/%.build Makefile
 	b=$$(basename "$<")
 	lang="$${b%.*}"
-	img=yegor256/$${lang}:$(VERSION)
+	img=yegor256/$${lang}
 	docker run --rm "$${img}" pdd --version
 	docker run --rm "$${img}" /bin/bash -c "$$(cat tests/test-$${lang}.sh)"
 	docker run --rm "$${img}" /bin/bash -c "
