@@ -18,4 +18,4 @@ jobs:
       PLATFORMS: linux/x86_64
     steps:
       - uses: actions/checkout@v4
-      - run: make test
+      - run: make -e test
