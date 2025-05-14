@@ -44,10 +44,15 @@ target/%.push: target/%.build target/%.test | target
 
 target/%.build: %/Dockerfile $(EXTRAS) Makefile | target
 	lang=$$(dirname "$<")
-	docker buildx create --use --name multi-platform-builder || true
-	docker buildx build --progress=plain --file "$<" \
-		"$$( if [ -n "$(PLATFORMS)" ]; then echo "--platform=$(PLATFORMS)"; fi )" \
-		--tag "yegor256/$${lang}:$(VERSION)" --load .
+	if [ -n "$(PLATFORMS)" ]; then
+		docker buildx create --use --name multi-platform-builder || true
+		docker buildx build --progress=plain --file "$<" \
+			"--platform=$(PLATFORMS)" \
+			--tag "yegor256/$${lang}:$(VERSION)" --load .
+	else
+		docker buildx build --progress=plain --file "$<" \
+			--tag "yegor256/$${lang}:$(VERSION)" --load .
+	fi
 	echo $? > "$@"
 
 target/%.test: target/%.build Makefile
