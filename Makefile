@@ -80,9 +80,11 @@ target/%.test: target/%.build Makefile
 
 target/%.extra: extras/%.sh target/ruby.build Makefile
 	i=$$(basename "$<")
-	docker run --rm \
-		"$$( if [ -n "$(PLATFORMS)" ]; then echo '--platform=linux/amd64'; fi )" \
-		yegor256/ruby "/usr/bin/$${i}"
+	if [ -n "$(PLATFORMS)" ]; then
+		docker run --rm --platform=linux/amd64 yegor256/ruby "/usr/bin/$${i}"
+	else
+		docker run --rm yegor256/ruby "/usr/bin/$${i}"
+	fi
 	echo $? > "$@"
 
 target:
