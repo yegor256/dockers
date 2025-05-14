@@ -7,22 +7,10 @@ LABEL version="0.0.1"
 
 SHELL ["/bin/bash", "-e", "-c", "-o", "pipefail"]
 
-# Python ftp: https://www.python.org/ftp/python
-# Status of Python versions: https://devguide.python.org/versions/
-ENV PYTHON_VERSION=3.13.3
-
-RUN mkdir -p /root/.python-$PYTHON_VERSION
-# hadolint ignore=DL3003
-RUN wget -q "https://www.python.org/ftp/python/$PYTHON_VERSION/Python-${PYTHON_VERSION}.tgz" \
-  && tar -xf "Python-${PYTHON_VERSION}.tgz" \
-  && cd "Python-${PYTHON_VERSION}" \
-  && ./configure --enable-optimizations "--prefix=/usr/local/python-${PYTHON_VERSION}" \
-  && make \
-  && make altinstall \
-  && echo "export PATH=\${PATH}:/usr/local/python-${PYTHON_VERSION}/bin:\${HOME}/.local/bin" >> "${HOME}/.profile" \
-  && ln -s "/usr/local/python-${PYTHON_VERSION}/bin/python3.13" /usr/local/bin/python3 \
-  && ln -s "/usr/local/python-${PYTHON_VERSION}/bin/pip3.13" /usr/local/bin/pip3 \
-  && rm -rf "Python-${PYTHON_VERSION}.tgz" "Python-${PYTHON_VERSION}" \
+RUN sudo apt update \
+  && sudo apt install --yes --no-install-recommends python3 python3-pip \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* \
+  && echo "export PATH=\${PATH}:\${HOME}/.local/bin" >> "${HOME}/.profile" \
   && python3 --version \
   && pip3 --version
-ENV PATH=${PATH}:/usr/local/python-${PYTHON_VERSION}/bin
