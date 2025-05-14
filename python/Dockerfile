@@ -7,8 +7,8 @@ LABEL version="0.0.1"
 
 SHELL ["/bin/bash", "-e", "-c", "-o", "pipefail"]
 
-RUN sudo apt update \
-  && sudo apt install --yes --no-install-recommends python3 python3-pip \
+RUN apt update \
+  && apt install --yes --no-install-recommends python3 python3-pip \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && echo "export PATH=\${PATH}:\${HOME}/.local/bin" >> "${HOME}/.profile" \
