@@ -53,10 +53,10 @@ target/%.build: %/Dockerfile $(EXTRAS) Makefile | target
 		docker buildx create --use --name multi-platform-builder || true
 		docker buildx build --progress=plain --file "$<" \
 			"--platform=$(PLATFORMS)" \
-			--tag "yegor256/$${lang}:$(VERSION)" --load .
+			--tag "yegor256/$${lang}" --load .
 	else
 		docker buildx build --progress=plain --file "$<" \
-			--tag "yegor256/$${lang}:$(VERSION)" --load .
+			--tag "yegor256/$${lang}" --load .
 	fi
 	echo $? > "$@"
 
