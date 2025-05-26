@@ -5,6 +5,8 @@ FROM yegor256/ruby:0.0.1
 LABEL description="RULTOR image for simple LaTeX projects"
 LABEL version="0.0.1"
 
+WORKDIR /tmp
+
 SHELL ["/bin/bash", "-e", "-c", "-o", "pipefail"]
 
 RUN apt-get -y -q update \
@@ -15,6 +17,7 @@ RUN apt-get -y -q update \
     imagemagick=* \
     ghostscript=* \
     qpdf=* \
+    texlive-fonts-recommended=2020.20210202-3 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
