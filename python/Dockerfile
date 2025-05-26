@@ -5,6 +5,8 @@ FROM yegor256/ruby:0.0.1
 LABEL description="RULTOR image for simple Python+Pip projects"
 LABEL version="0.0.1"
 
+WORKDIR /tmp
+
 SHELL ["/bin/bash", "-e", "-c", "-o", "pipefail"]
 
 RUN apt-get update \
