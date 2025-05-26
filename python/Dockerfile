@@ -27,7 +27,7 @@ RUN apt-get update \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && cd /tmp \
-  && wget -q https://www.python.org/ftp/python/3.12.0/Python-3.12.0.tgz \
+  && wget --quiet https://www.python.org/ftp/python/3.12.0/Python-3.12.0.tgz \
   && tar -xzf Python-3.12.0.tgz \
   && cd Python-3.12.0 \
   && ./configure --enable-optimizations \
