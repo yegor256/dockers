@@ -5,10 +5,9 @@ FROM yegor256/ruby:0.0.1
 LABEL description="RULTOR image for simple Python+Pip projects"
 LABEL version="0.0.1"
 
-WORKDIR /tmp
-
 SHELL ["/bin/bash", "-e", "-c", "-o", "pipefail"]
 
+# hadolint ignore=DL3003
 RUN apt-get update \
   && apt-get install --yes --no-install-recommends \
     wget=* \
@@ -27,6 +26,7 @@ RUN apt-get update \
     liblzma-dev=* \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
+  && cd /tmp \
   && wget -q https://www.python.org/ftp/python/3.12.0/Python-3.12.0.tgz \
   && tar -xzf Python-3.12.0.tgz \
   && cd Python-3.12.0 \
