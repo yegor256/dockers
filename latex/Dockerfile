@@ -15,7 +15,7 @@ RUN apt-get -y -q update \
     imagemagick=* \
     ghostscript=* \
     qpdf=* \
-    texlive-fonts-recommended \
+    texlive-fonts-recommended=2020.20210202-3 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
