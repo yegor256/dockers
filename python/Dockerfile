@@ -36,7 +36,9 @@ RUN apt-get update \
   && cd / \
   && rm -rf /tmp/Python-3.12.0* \
   && ln -sf /usr/local/bin/python3 /usr/bin/python3 \
+  && ln -sf /usr/local/bin/python3 /usr/bin/python \
   && ln -sf /usr/local/bin/pip3 /usr/bin/pip3 \
+  && ln -sf /usr/local/bin/pip3 /usr/bin/pip \
   && echo "export PATH=\${PATH}:\${HOME}/.local/bin" >> "${HOME}/.profile" \
   && python3 --version \
   && pip3 --version
