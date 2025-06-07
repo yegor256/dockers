@@ -30,7 +30,7 @@ latex: target/latex.test
 java: target/java.test
 target/ruby.build: $(EXTRAS)
 target/java.build: target/ruby.build
-target/python.build: target/ruby.build
+target/python.build: target/ruby.build target/java.build
 target/rust.build: target/ruby.build
 target/latex.build: target/ruby.build
 
