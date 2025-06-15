@@ -12,9 +12,8 @@ ARG CABAL=latest
 
 RUN gpg --batch --keyserver keys.openpgp.org --recv-keys ECA44F5A172EDAD947F39E3D4275CDA6A29BED43 \
   && curl https://downloads.haskell.org/~ghcup/x86_64-linux-ghcup > /usr/bin/ghcup \
-  && chmod +x /usr/bin/ghcup
-
-RUN ghcup config set gpg-setting GPGStrict \
+  && chmod +x /usr/bin/ghcup \
+  && ghcup config set gpg-setting GPGStrict \
   && ghcup -v install ghc --isolate /usr/local --force "${GHC}" \
   && ghcup -v install cabal --isolate /usr/local/bin --force "${CABAL}" \
   && cabal update \
