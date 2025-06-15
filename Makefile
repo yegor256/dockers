@@ -2,10 +2,10 @@
 # SPDX-License-Identifier: MIT
 
 .ONESHELL:
-.PHONY: all test build push clean ruby latex python rust java
+.PHONY: all test build push clean ruby latex python rust java haskell
 .SHELLFLAGS := -e -o pipefail -c
 SHELL := bash
-LANGS=ruby java latex python rust
+LANGS=ruby java latex python rust haskell
 BUILDS=$(addsuffix .build,$(addprefix target/,$(LANGS)))
 PUSHES=$(addsuffix .push,$(addprefix target/,$(LANGS)))
 TESTS=$(addsuffix .test,$(addprefix target/,$(LANGS)))
@@ -27,9 +27,11 @@ ruby: target/ruby.test $(EXTRAS)
 python: target/python.test
 rust: target/rust.test
 latex: target/latex.test
+haskell: target/haskell.test
 java: target/java.test
 target/ruby.build: $(EXTRAS)
 target/java.build: target/ruby.build
+target/haskell.build: target/java.build
 target/python.build: target/ruby.build target/java.build
 target/rust.build: target/ruby.build
 target/latex.build: target/ruby.build
