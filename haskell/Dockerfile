@@ -7,14 +7,16 @@ LABEL version="0.0.1"
 
 SHELL ["/bin/bash", "-e", "-c", "-o", "pipefail"]
 
-ARG GHC=8.10.7
-ARG CABAL=latest
-
-RUN gpg --batch --keyserver keys.openpgp.org --recv-keys ECA44F5A172EDAD947F39E3D4275CDA6A29BED43 \
+RUN gpg --batch --recv-keys ECA44F5A172EDAD947F39E3D4275CDA6A29BED43 \
   && curl https://downloads.haskell.org/~ghcup/x86_64-linux-ghcup > /usr/bin/ghcup \
   && chmod +x /usr/bin/ghcup \
-  && ghcup config set gpg-setting GPGStrict \
-  && ghcup -v install ghc --isolate /usr/local --force "${GHC}" \
+  && ghcup config set gpg-setting GPGStrict
+
+ARG GHC=9.6.7
+ARG CABAL=3.12.1.0
+
+RUN ghcup -v install ghc --isolate /usr/local --force "${GHC}" \
   && ghcup -v install cabal --isolate /usr/local/bin --force "${CABAL}" \
   && cabal update \
+  && ghc --version \
   && cabal --version
