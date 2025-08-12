@@ -7,6 +7,8 @@ set -ex -o pipefail
 
 javac --version
 mvn --version
+env
+gradle --version
 
 mvn dependency:get -Dartifact=junit:junit:4.11
 
