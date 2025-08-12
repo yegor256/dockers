@@ -30,29 +30,36 @@ ENV LANGUAGE=en_US.UTF-8
 
 RUN apt-get update \
   && apt-get install --yes --no-install-recommends \
+    build-essential=* \
+    ca-certificates=* \
     curl=* wget=* \
-    sudo=* \
     git=* \
-    zip=* unzip=* \
     gnupg2=* \
-    ssh=* \
-    tree=* \
     jq=* \
     libcurl4-gnutls-dev=* \
-    libxml2-utils=* \
     libjpeg-dev=* \
-    build-essential=* \
     libmagic-dev=* \
-    zlib1g-dev=* \
+    libxml2-utils=* \
+    lsb-release=* \
     openssl=* \
-    lsb-release=* software-properties-common=* \
+    software-properties-common=* \
+    ssh=* \
+    sudo=* \
+    tree=* \
+    unzip=* \
+    zip=* \
+    zlib1g-dev=* \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /tmp/download \
-  && curl -s -L "https://download.docker.com/linux/static/stable/x86_64/docker-27.3.1.tgz" | tar -xz -C /tmp/download \
-  && mv /tmp/download/docker/docker /usr/bin/ \
-  && rm -rf /tmp/download
+RUN mkdir -p /etc/apt/keyrings/ \
+  && curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc \
+  && chmod a+r /etc/apt/keyrings/docker.asc \
+  && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(. /etc/os-release && echo "${VERSION_CODENAME}") stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null \
+  && apt-get update \
+  && apt-get --yes --no-install-recommends install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 ENV GEM_HOME=/usr/local/bundle
 RUN echo 'gem: --no-document' >> ~/.gemrc \

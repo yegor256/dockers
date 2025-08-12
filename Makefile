@@ -41,7 +41,7 @@ pull: | target
 		docker pull "yegor256/$${lang}"
 	done
 
-target/%.push: target/%.build | target
+target/%.push: target/%.build target/%.test | target
 	b=$$(basename "$<")
 	lang="$${b%.*}"
 	docker tag "yegor256/$${lang}" "yegor256/$${lang}:$(VERSION)"
