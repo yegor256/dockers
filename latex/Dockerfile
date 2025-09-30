@@ -35,7 +35,8 @@ RUN wget -q --no-check-certificate "${TL_URL}/install-tl.zip" \
   && echo "export PATH=\${PATH}:/usr/local/texlive/${TL_YEAR}/bin/latest" >> "${HOME}/.profile" \
   && tlmgr init-usertree \
   && tlmgr option repository "${TL_URL}" \
-  && tlmgr --verify-repo=none install texliveonfly collection-latex l3kernel l3packages latexmk l3build biber xetex collection-fontsrecommended \
+  && tlmgr --verify-repo=none install \
+    texliveonfly collection-latex luaotfload l3kernel l3packages latexmk l3build biber xetex collection-fontsrecommended \
   && chmod -R a+w /usr/local/texlive
 
 RUN gem install texsc -v 0.8.0 \
