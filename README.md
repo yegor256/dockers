@@ -19,6 +19,12 @@ In order to build them all, use Make:
 make
 ```
 
+If doesn't work on macOS, do this:
+
+```bash
+make PLATFORMS=linux/x86_64
+```
+
 When they are all ready, `make push` them to [Docker Hub]
 (provided, you are [logged] into it already).
 
