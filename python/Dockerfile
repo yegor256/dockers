@@ -17,7 +17,6 @@ RUN apt-get update \
     libbz2-dev=* \
     libreadline-dev=* \
     libsqlite3-dev=* \
-    libncursesw5-dev=* \
     xz-utils=* \
     tk-dev=* \
     libxml2-dev=* \
