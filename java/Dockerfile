@@ -9,7 +9,7 @@ SHELL ["/bin/bash", "-e", "-c", "-o", "pipefail"]
 
 ENV MAVEN_OPTS=-Xmx1g
 ENV JAVA_OPTS=-Xmx1g
-ENV JAVA_VERSION=17
+ENV JAVA_VERSION=21
 ENV JAVA_HOME=/usr/lib/jvm/java-${JAVA_VERSION}
 RUN apt-get --yes --fix-missing update \
   && apt-get --yes --no-install-recommends install ca-certificates-java=* ca-certificates=* "openjdk-${JAVA_VERSION}-jdk=*" \
