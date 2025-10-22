@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2012-2025 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-FROM ruby:3.5-rc
+FROM ruby:3.4-bullseye
 LABEL description="RULTOR image for simple Ruby projects (gems mostly)"
 LABEL version="0.0.1"
 
@@ -42,6 +42,7 @@ RUN apt-get update \
     libxml2-utils=* \
     lsb-release=* \
     openssl=* \
+    software-properties-common=* \
     ssh=* \
     sudo=* \
     tree=* \

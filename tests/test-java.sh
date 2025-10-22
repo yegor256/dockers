@@ -12,7 +12,7 @@ gradle --version
 
 mvn dependency:get -Dartifact=junit:junit:4.11
 
-[[ "$(javac --version)" =~ 21\.0 ]]
+[[ "$(javac --version)" =~ 17\.0 ]]
 
 [[ "$(mvn --version)" =~ 3\.9 ]]
 
