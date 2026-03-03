@@ -20,7 +20,7 @@ RUN apt-get -y -q update \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-ENV TL_YEAR=2025
+ENV TL_YEAR=2026
 ENV TL_URL=https://ftp.snt.utwente.nl/pub/software/tex/systems/texlive/tlnet
 ENV PATH=${PATH}:/usr/local/texlive/${TL_YEAR}/bin/latest
 
