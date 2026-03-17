@@ -54,11 +54,11 @@ RUN apt-get update \
 
 # Note if the base image changes, then these versions need to be adjusted
 # along with bullseye release name
-ARG DOCKER_VERSION=5:24.0.7-1~debian.11~bullseye
-ARG DOCKER_CLI_VERSION=5:24.0.7-1~debian.11~bullseye
-ARG CONTAINERD_VERSION=1.6.26-1
-ARG BUILDX_VERSION=0.11.2-1~debian.11~bullseye
-ARG COMPOSE_VERSION=2.21.0-1~debian.11~bullseye
+ARG DOCKER_VERSION=5:29.2.1-1~debian.11~bullseye
+ARG DOCKER_CLI_VERSION=5:29.2.1-1~debian.11~bullseye
+ARG CONTAINERD_VERSION=2.2.1-1~debian.11~bullseye
+ARG BUILDX_VERSION=0.31.1-1~debian.11~bullseye
+ARG COMPOSE_VERSION=5.1.0-1~debian.11~bullseye
 
 RUN mkdir -p /etc/apt/keyrings/ \
   && curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc \
