@@ -52,12 +52,25 @@ RUN apt-get update \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
+# Note if the base image changes, then these versions need to be adjusted
+# along with bullseye release name
+ARG DOCKER_VERSION=5:29.2.1-1~debian.11~bullseye
+ARG DOCKER_CLI_VERSION=5:29.2.1-1~debian.11~bullseye
+ARG CONTAINERD_VERSION=2.2.1-1~debian.11~bullseye
+ARG BUILDX_VERSION=0.31.1-1~debian.11~bullseye
+ARG COMPOSE_VERSION=5.1.0-1~debian.11~bullseye
+
 RUN mkdir -p /etc/apt/keyrings/ \
   && curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc \
   && chmod a+r /etc/apt/keyrings/docker.asc \
-  && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(. /etc/os-release && echo "${VERSION_CODENAME}") stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null \
+  && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian bullseye stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null \
   && apt-get update \
-  && apt-get --yes --no-install-recommends install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin \
+  && apt-get --yes --no-install-recommends install \
+    docker-ce=${DOCKER_VERSION} \
+    docker-ce-cli=${DOCKER_CLI_VERSION} \
+    containerd.io=${CONTAINERD_VERSION} \
+    docker-buildx-plugin=${BUILDX_VERSION} \
+    docker-compose-plugin=${COMPOSE_VERSION} \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
