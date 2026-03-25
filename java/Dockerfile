@@ -7,17 +7,20 @@ LABEL version="0.0.1"
 
 SHELL ["/bin/bash", "-e", "-c", "-o", "pipefail"]
 
+ARG TARGETARCH
 ENV MAVEN_OPTS=-Xmx1g
 ENV JAVA_OPTS=-Xmx1g
-ENV JAVA_VERSION=17
-ENV JAVA_HOME=/usr/lib/jvm/java-${JAVA_VERSION}
+ENV JAVA_VERSION=21
 RUN apt-get --yes --fix-missing update \
-  && apt-get --yes --no-install-recommends install ca-certificates-java=* ca-certificates=* "openjdk-${JAVA_VERSION}-jdk=*" \
+  && apt-get --yes --no-install-recommends install ca-certificates=* wget=* gpg=* \
+  && wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor -o /usr/share/keyrings/adoptium.gpg \
+  && echo "deb [signed-by=/usr/share/keyrings/adoptium.gpg] https://packages.adoptium.net/artifactory/deb bullseye main" > /etc/apt/sources.list.d/adoptium.list \
+  && apt-get --yes update \
+  && apt-get --yes --no-install-recommends install "temurin-${JAVA_VERSION}-jdk" \
   && update-ca-certificates \
-  && ln -s "/usr/lib/jvm/$(find /usr/lib/jvm -name "java-1.${JAVA_VERSION}*" -exec basename {} \;)" "/usr/lib/jvm/java-${JAVA_VERSION}" \
-  && echo "export JAVA_HOME=/usr/lib/jvm/java-${JAVA_VERSION}" >> "${HOME}/.profile" \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
+ENV JAVA_HOME=/usr/lib/jvm/temurin-${JAVA_VERSION}-jdk-${TARGETARCH}
 
 ENV MAVEN_VERSION=3.9.9
 ENV M2_HOME=/usr/local/apache-maven/apache-maven-${MAVEN_VERSION}
