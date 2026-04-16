@@ -18,7 +18,7 @@ apt-get install --yes "postgresql-server-dev-${ver}"
 apt-get clean
 
 for c in initdb postgres pg_ctl createdb; do
-    ln -s "$(realpath "${dir}/bin/${c}")" "/bin/${c}"
+    ln -sf "$(realpath "${dir}/bin/${c}")" "/bin/${c}"
 done
 
 postgres --version
