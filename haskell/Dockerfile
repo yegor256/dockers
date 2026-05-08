@@ -8,7 +8,12 @@ LABEL version="0.0.1"
 SHELL ["/bin/bash", "-e", "-c", "-o", "pipefail"]
 
 RUN gpg --batch --recv-keys ECA44F5A172EDAD947F39E3D4275CDA6A29BED43 \
-  && curl https://downloads.haskell.org/~ghcup/x86_64-linux-ghcup > /usr/bin/ghcup \
+  && case "$(uname -m)" in \
+       x86_64) GHCUP_ARCH=x86_64 ;; \
+       aarch64|arm64) GHCUP_ARCH=aarch64 ;; \
+       *) echo "unsupported architecture: $(uname -m)" && exit 1 ;; \
+     esac \
+  && curl "https://downloads.haskell.org/~ghcup/${GHCUP_ARCH}-linux-ghcup" > /usr/bin/ghcup \
   && chmod +x /usr/bin/ghcup \
   && ghcup config set gpg-setting GPGStrict
 
