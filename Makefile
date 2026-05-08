@@ -12,7 +12,7 @@ TESTS=$(addsuffix .test,$(addprefix target/,$(LANGS)))
 EXTRAS=$(shell find extras/ -name '*.sh')
 EXTRAS_STANDALONE=$(filter-out extras/install-maven.sh extras/install-gradle.sh,$(EXTRAS))
 ETESTS=$(addsuffix .extra,$(addprefix target/,$(subst extras/,,$(subst .sh,,$(EXTRAS_STANDALONE)))))
-PLATFORMS=linux/x86_64,linux/arm64,linux/amd64
+PLATFORMS=linux/arm64,linux/amd64
 
 VERSION=0.0.1
 
@@ -36,6 +36,11 @@ target/haskell.build: target/java.build
 target/python.build: target/ruby.build target/java.build
 target/rust.build: target/ruby.build
 target/latex.build: target/ruby.build
+target/java.push: | target/ruby.push
+target/haskell.push: | target/java.push
+target/python.push: | target/ruby.push target/java.push
+target/rust.push: | target/ruby.push
+target/latex.push: | target/ruby.push
 
 pull: | target
 	for lang in $(LANGS); do
@@ -45,24 +50,25 @@ pull: | target
 target/%.push: target/%.build target/%.test | target
 	b=$$(basename "$<")
 	lang="$${b%.*}"
-	docker tag "yegor256/$${lang}" "yegor256/$${lang}:$(VERSION)"
-	docker push "yegor256/$${lang}"
-	docker push "yegor256/$${lang}:$(VERSION)"
+	if [ -n "$(PLATFORMS)" ]; then
+		docker buildx use multi-platform-builder 2>/dev/null \
+			|| docker buildx create --use --name multi-platform-builder
+		docker buildx build --progress=plain --file "$${lang}/Dockerfile" \
+			"--platform=$(PLATFORMS)" \
+			--tag "yegor256/$${lang}" \
+			--tag "yegor256/$${lang}:$(VERSION)" --push .
+	else
+		docker tag "yegor256/$${lang}" "yegor256/$${lang}:$(VERSION)"
+		docker push "yegor256/$${lang}"
+		docker push "yegor256/$${lang}:$(VERSION)"
+	fi
 	echo $? > "$@"
 
 target/%.build: %/Dockerfile $(EXTRAS) Makefile | target
 	lang=$$(dirname "$<")
-	if [ -n "$(PLATFORMS)" ]; then
-		docker buildx create --use --name multi-platform-builder || true
-		docker buildx build --progress=plain --file "$<" \
-			"--platform=$(PLATFORMS)" \
-			--tag "yegor256/$${lang}" \
-			--tag "yegor256/$${lang}:$(VERSION)" --load .
-	else
-		docker buildx build --progress=plain --file "$<" \
-			--tag "yegor256/$${lang}" \
-			--tag "yegor256/$${lang}:$(VERSION)" --load .
-	fi
+	docker buildx build --progress=plain --file "$<" \
+		--tag "yegor256/$${lang}" \
+		--tag "yegor256/$${lang}:$(VERSION)" --load .
 	echo $? > "$@"
 
 target/%.test: target/%.build Makefile
