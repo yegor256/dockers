@@ -9,7 +9,7 @@ year=${TL_YEAR:-2026}
 url=${TL_URL:-https://ftp.snt.utwente.nl/pub/software/tex/systems/texlive/tlnet}
 
 apt-get --yes --fix-missing update
-apt-get --yes --no-install-recommends install perl wget unzip
+apt-get --yes --no-install-recommends install perl wget unzip ghostscript
 apt-get clean
 rm -rf /var/lib/apt/lists/*
 
@@ -34,3 +34,4 @@ tlmgr path add
 chmod -R a+w /usr/local/texlive
 
 pdflatex --version
+gs --version
