@@ -74,9 +74,10 @@ RUN mkdir -p /etc/apt/keyrings/ \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
+COPY extras/ /usr/bin/
+
 ENV GEM_HOME=/usr/local/bundle
-RUN echo 'gem: --no-document' >> ~/.gemrc \
-  && gem install bundler -v 2.3.26 \
+RUN /usr/bin/install-bundler.sh \
   && gem install xcop -v 0.8.0 \
   && gem install pdd -v 0.23.1 \
   && chmod a+w -R /usr/local/bundle
@@ -84,5 +85,3 @@ RUN echo 'gem: --no-document' >> ~/.gemrc \
 ENV PATH=${GEM_HOME}/bin:${PATH}
 RUN echo "export PATH=${GEM_HOME}/bin:\${PATH}" >> "${HOME}/.profile" \
   && echo "export GEM_HOME=${GEM_HOME}" >> "${HOME}/.profile"
-
-COPY extras/ /usr/bin/

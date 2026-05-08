@@ -11,7 +11,6 @@ SHELL ["/bin/bash", "-e", "-c", "-o", "pipefail"]
 
 RUN apt-get -y -q update \
   && apt-get -y install --no-install-recommends \
-    perl=* \
     inkscape=* \
     aspell=* \
     imagemagick=* \
@@ -24,20 +23,7 @@ ENV TL_YEAR=2026
 ENV TL_URL=https://ftp.snt.utwente.nl/pub/software/tex/systems/texlive/tlnet
 ENV PATH=${PATH}:/usr/local/texlive/${TL_YEAR}/bin/latest
 
-# hadolint ignore=DL3003
-RUN wget -q --no-check-certificate "${TL_URL}/install-tl.zip" \
-  && unzip -qq install-tl.zip -d install-tl \
-  && cd install-tl/install-tl-* \
-  && perl ./install-tl --scheme=scheme-minimal --no-interaction "--repository=${TL_URL}" \
-  && ln -s "$(ls "/usr/local/texlive/${TL_YEAR}/bin/")" "/usr/local/texlive/${TL_YEAR}/bin/latest" \
-  && cd .. \
-  && rm -rf ./install-tl* \
-  && echo "export PATH=\${PATH}:/usr/local/texlive/${TL_YEAR}/bin/latest" >> "${HOME}/.profile" \
-  && tlmgr init-usertree \
-  && tlmgr option repository "${TL_URL}" \
-  && tlmgr --verify-repo=none install \
-    texliveonfly collection-latex luaotfload l3kernel l3packages latexmk l3build biber xetex collection-fontsrecommended \
-  && chmod -R a+w /usr/local/texlive
+RUN /usr/bin/install-latex.sh
 
 RUN gem install texsc -v 0.8.0 \
   && gem install texqc -v 0.8.0

@@ -10,7 +10,8 @@ BUILDS=$(addsuffix .build,$(addprefix target/,$(LANGS)))
 PUSHES=$(addsuffix .push,$(addprefix target/,$(LANGS)))
 TESTS=$(addsuffix .test,$(addprefix target/,$(LANGS)))
 EXTRAS=$(shell find extras/ -name '*.sh')
-ETESTS=$(addsuffix .extra,$(addprefix target/,$(subst extras/,,$(subst .sh,,$(EXTRAS)))))
+EXTRAS_STANDALONE=$(filter-out extras/install-maven.sh extras/install-gradle.sh,$(EXTRAS))
+ETESTS=$(addsuffix .extra,$(addprefix target/,$(subst extras/,,$(subst .sh,,$(EXTRAS_STANDALONE)))))
 PLATFORMS=linux/x86_64,linux/arm64,linux/amd64
 
 VERSION=0.0.1
@@ -55,10 +56,12 @@ target/%.build: %/Dockerfile $(EXTRAS) Makefile | target
 		docker buildx create --use --name multi-platform-builder || true
 		docker buildx build --progress=plain --file "$<" \
 			"--platform=$(PLATFORMS)" \
-			--tag "yegor256/$${lang}" --load .
+			--tag "yegor256/$${lang}" \
+			--tag "yegor256/$${lang}:$(VERSION)" --load .
 	else
 		docker buildx build --progress=plain --file "$<" \
-			--tag "yegor256/$${lang}" --load .
+			--tag "yegor256/$${lang}" \
+			--tag "yegor256/$${lang}:$(VERSION)" --load .
 	fi
 	echo $? > "$@"
 
