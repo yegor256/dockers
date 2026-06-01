@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2012-2026 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-FROM ruby:3.4-bullseye
+FROM ubuntu:24.04
 LABEL description="RULTOR image for simple Ruby projects (gems mostly)"
 LABEL version="0.0.1"
 
@@ -50,20 +50,21 @@ RUN apt-get update \
     zip=* \
     zlib1g-dev=* \
   && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* \
+  && (getent group ssh > /dev/null || groupadd --system ssh)
 
 # Note if the base image changes, then these versions need to be adjusted
-# along with bullseye release name
-ARG DOCKER_VERSION=5:29.2.1-1~debian.11~bullseye
-ARG DOCKER_CLI_VERSION=5:29.2.1-1~debian.11~bullseye
-ARG CONTAINERD_VERSION=2.2.1-1~debian.11~bullseye
-ARG BUILDX_VERSION=0.31.1-1~debian.11~bullseye
-ARG COMPOSE_VERSION=5.1.0-1~debian.11~bullseye
+# along with the noble release name
+ARG DOCKER_VERSION=5:29.2.1-1~ubuntu.24.04~noble
+ARG DOCKER_CLI_VERSION=5:29.2.1-1~ubuntu.24.04~noble
+ARG CONTAINERD_VERSION=2.2.1-1~ubuntu.24.04~noble
+ARG BUILDX_VERSION=0.31.1-1~ubuntu.24.04~noble
+ARG COMPOSE_VERSION=5.1.0-1~ubuntu.24.04~noble
 
 RUN mkdir -p /etc/apt/keyrings/ \
-  && curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc \
+  && curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc \
   && chmod a+r /etc/apt/keyrings/docker.asc \
-  && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian bullseye stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null \
+  && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null \
   && apt-get update \
   && apt-get --yes --no-install-recommends install \
     docker-ce=${DOCKER_VERSION} \
@@ -76,8 +77,15 @@ RUN mkdir -p /etc/apt/keyrings/ \
 
 COPY extras/ /usr/bin/
 
+ENV RUBY_VERSION=3.4.9
+RUN /usr/bin/install-ruby.sh
+
 ENV GEM_HOME=/usr/local/bundle
-RUN /usr/bin/install-bundler.sh \
+ENV BUNDLE_SILENCE_ROOT_WARNING=1
+ENV BUNDLE_APP_CONFIG=${GEM_HOME}
+RUN mkdir -p "${GEM_HOME}" \
+  && chmod 1777 "${GEM_HOME}" \
+  && /usr/bin/install-bundler.sh \
   && gem install xcop -v 0.8.0 \
   && gem install pdd -v 0.23.1 \
   && chmod a+w -R /usr/local/bundle
