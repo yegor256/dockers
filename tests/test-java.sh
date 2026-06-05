@@ -6,11 +6,11 @@
 set -ex -o pipefail
 
 javac --version
-mvn --version
+mvn -ntp --version
 env
 gradle --version
 
-mvn dependency:get -Dartifact=junit:junit:4.11
+mvn -ntp dependency:get -Dartifact=junit:junit:4.11
 
 [[ "$(javac --version)" =~ 21\. ]]
 

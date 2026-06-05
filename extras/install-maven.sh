@@ -23,6 +23,6 @@ tar xzvf "/usr/local/apache-maven/apache-maven-${ver}-bin.tar.gz" -C /usr/local/
 update-alternatives --install /usr/bin/mvn mvn "${m2_home}/bin/mvn" 1
 update-alternatives --config mvn
 
-mvn dependency:get -Dartifact=junit:junit:4.11
+mvn -ntp dependency:get -Dartifact=junit:junit:4.11
 
 mvn --version
