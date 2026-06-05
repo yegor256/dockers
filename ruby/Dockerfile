@@ -30,6 +30,8 @@ ENV LANGUAGE=en_US.UTF-8
 
 RUN apt-get update \
   && apt-get install --yes --no-install-recommends \
+    autoconf=* \
+    automake=* \
     build-essential=* \
     ca-certificates=* \
     curl=* wget=* \
@@ -39,6 +41,7 @@ RUN apt-get update \
     libcurl4-gnutls-dev=* \
     libjpeg-dev=* \
     libmagic-dev=* \
+    libtool=* \
     libxml2-utils=* \
     lsb-release=* \
     openssl=* \
