@@ -6,7 +6,7 @@
 set -ex -o pipefail
 
 apt-get update --yes --fix-missing
-apt-get install apache2-utils
+apt-get install --yes apache2-utils
 apt-get clean
 
 ab -V
