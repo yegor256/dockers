@@ -14,6 +14,8 @@ zip -h | head -1
 unzip -h | head -1
 ssh -V
 git --version
+identify --version
+convert --version
 docker --version
 docker buildx version
 

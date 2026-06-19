@@ -37,6 +37,7 @@ RUN apt-get update \
     curl=* wget=* \
     git=* \
     gnupg2=* \
+    imagemagick=* \
     jq=* \
     libcurl4-gnutls-dev=* \
     libjpeg-dev=* \
