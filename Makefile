@@ -22,7 +22,7 @@ test: $(TESTS) $(ETESTS)
 
 build: $(BUILDS)
 
-push: $(PUSHES)
+push: test $(PUSHES)
 
 ruby: target/ruby.test $(EXTRAS)
 python: target/python.test
