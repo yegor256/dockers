@@ -12,8 +12,8 @@ gradle --version
 
 mvn -ntp dependency:get -Dartifact=junit:junit:4.11
 
-[[ "$(javac --version)" =~ 21\. ]]
+[[ "$(javac --version)" =~ 25\. ]]
 
-[[ "$(mvn --version)" =~ 3\.9 ]]
+[[ "$(mvn --version)" =~ 3\.10 ]]
 
 [ -e /usr/bin/install-postgres.sh ]
