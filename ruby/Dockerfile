@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2012-2026 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 LABEL description="RULTOR image for simple Ruby projects (gems mostly)"
 LABEL version="0.0.1"
 
